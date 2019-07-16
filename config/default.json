@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://chloejia:chloejia@musictogether-l2l1x.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://chloejia:chloejia@musictogether-l2l1x.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
 }
