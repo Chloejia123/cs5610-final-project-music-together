@@ -4,12 +4,14 @@ import NavBar from './component/layout/NavBar';
 import Landing from './component/layout/Landing';
 import Register from './component/auth/Register';
 import Login from './component/auth/Login';
+import Search from './component/search/Search';
 import {Provider} from 'react-redux';
 import store from './store';
 import './App.css';
 import Alert from './component/layout/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+
 
 if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -29,6 +31,7 @@ const App = () => {
                 <section className='container'>
                     <Alert/>
                     <Switch>
+                        <Route exact path='/search' component={Search} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                     </Switch>
