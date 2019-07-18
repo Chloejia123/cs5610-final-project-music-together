@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchItem from './SearchItem'
 import SearchKeyword from './SearchKeyword'
 import SearchArtist from './SearchArtist'
 import SearchPlaylist from './SearchPlaylist'
@@ -154,9 +155,8 @@ export default class Search extends React.Component {
                 <ul className="list-group">
                 {
                     this.state.result.items.map(
-                        (song, index) =>
-                            <li key={index} className="list-group-item">
-                                {song.name}</li>)
+                        (song, index) => <SearchItem song={song} key={index} />
+                        )
                 }
                 </ul>
             </div>
