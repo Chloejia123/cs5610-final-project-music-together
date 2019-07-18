@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Search extends React.Component {
+export default class SearchPlaylist extends React.Component {
     constructor() {
         super()
     }
