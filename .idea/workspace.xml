@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c42e8fc8-15a7-4a83-b62b-6ed9a962d0e1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" afterPath="$PROJECT_DIR$/client/src/App.css" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" afterPath="$PROJECT_DIR$/client/src/App.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/types.js" afterPath="$PROJECT_DIR$/client/src/actions/types.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/auth/Login.js" afterPath="$PROJECT_DIR$/client/src/component/auth/Login.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/auth/Register.js" afterPath="$PROJECT_DIR$/client/src/component/auth/Register.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/layout/Landing.js" afterPath="$PROJECT_DIR$/client/src/component/layout/Landing.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/layout/NavBar.js" afterPath="$PROJECT_DIR$/client/src/component/layout/NavBar.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" />
-    </list>
+    <list default="true" id="c42e8fc8-15a7-4a83-b62b-6ed9a962d0e1" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -481,12 +471,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563333995728</updated>
-      <workItem from="1563333997297" duration="19042000" />
+      <workItem from="1563333997297" duration="19231000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19042000" />
+    <option name="totallyTimeSpent" value="19231000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
