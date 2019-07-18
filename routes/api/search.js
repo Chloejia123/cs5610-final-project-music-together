@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const spotifyauth = require('../../middleware/spotifyauth');
 
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 // @route    GET api/search/results/:keyword
 // @desc     Get search result whose name, album or artist contains the keyword
 // @access   Public
