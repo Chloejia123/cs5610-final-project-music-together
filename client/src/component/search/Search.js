@@ -20,7 +20,7 @@ export default class Search extends React.Component {
     switchSearchCategory = (searchTerm) => {
         this.setState({
             searchBy: searchTerm
-        }) 
+        })
     }
 
     searchSongs = () => {
@@ -28,16 +28,16 @@ export default class Search extends React.Component {
             displayResults: true,
         })
         const category = this.state.searchBy === 'all' ? 'results' : this.state.searchBy
-        fetch(`http://localhost:5000/api/search/${category}/${this.state.keyword}`)
+        fetch(`https://music-together-cs5610-team11.herokuapp.com/api/search/${category}/${this.state.keyword}`)
             .then(response => response.json())
             .then(this.triggerResults)
     }
 
     extractResult = (result) => {
-        switch(this.state.searchBy) {
-            case 'all': 
+        switch (this.state.searchBy) {
+            case 'all':
                 return result.tracks
-            case 'artists': 
+            case 'artists':
                 return result.artists
             case 'playlists':
                 return result.playlists
@@ -51,7 +51,7 @@ export default class Search extends React.Component {
 
     triggerResults = (result) => {
         this.setState({
-            result: this.extractResult(result) 
+            result: this.extractResult(result)
         })
     }
 
@@ -61,7 +61,7 @@ export default class Search extends React.Component {
             displayResults: true,
         })
     }
- 
+
     clearSearch = () => {
         // alert('clear search')
         this.setState({
@@ -75,91 +75,107 @@ export default class Search extends React.Component {
 
     renderResults = (result) => {
         console.log('triggered')
-        // alert(result)
+            // alert(result)
         console.log(this.state.searchBy)
-        // this.setState({
-        //     result: result
-        // })
+            // this.setState({
+            //     result: result
+            // })
         if (this.state.displayResults) {
-            switch(this.state.searchBy) {
+            switch (this.state.searchBy) {
                 case 'all':
                     console.log('result')
                     console.log(result.tracks)
                     console.log(this.state.result)
                     console.log('result')
-                    // return <SearchKeyword result={this.state.result}/>
-                    return <div>{result.tracks.total}</div>
+                        // return <SearchKeyword result={this.state.result}/>
+                    return <div > { result.tracks.total } < /div>
                         // blah
                         // {result.tracks}
-                        {/* Found {result.tracks.total} results, display top {result.tracks.total === 0 ? 0 : this.state.result.tracks.items.ength}
-                        <ul className="list-group">
                         {
-                            result.tracks.items.map(
-                                (song, index) => <li key={index} className="list-group-item">
-                                    {song.name}
-                                </li>
-                            )
+                            /* Found {result.tracks.total} results, display top {result.tracks.total === 0 ? 0 : this.state.result.tracks.items.ength}
+                                                    <ul className="list-group">
+                                                    {
+                                                        result.tracks.items.map(
+                                                            (song, index) => <li key={index} className="list-group-item">
+                                                                {song.name}
+                                                            </li>
+                                                        )
+                                                    }
+                                                    </ul> */
                         }
-                        </ul> */}
-                    // </div>
-                case 'artists': 
-                    return <SearchArtist result={this.state.result}/>
+                        // </div>
+                case 'artists':
+                    return <SearchArtist result = { this.state.result }
+                    />
                 case 'playlists':
-                    return <SearchPlaylist result={this.state.result}/>
+                    return <SearchPlaylist result = { this.state.result }
+                    />
                 default:
-                    return <div>Please select a category to search by.</div>
+                    return <div > Please select a category to search by. < /div>
             }
         }
     }
 
     render() {
-        return (
-            <div>
-                <h1>Search by {this.state.searchBy}</h1>
-                <button                     
-                    onClick={() => this.switchSearchCategory('all')}
-                    className="btn btn-dark">
-                    All
-                </button>
-                <button 
-                    onClick={() => this.switchSearchCategory('artists')}
-                    className="btn btn-dark">
-                    Artists
-                </button>
-                <button                     
-                    onClick={() => this.switchSearchCategory('playlists')}
-                    className="btn btn-dark">
-                    Playlists
-                </button>
-                <form className='form'>
-                    <div className="form-group">
-                        <input 
-                            type='search'
-                            value={this.state.keyword}
-                            onChange={(event) => this.keywordChanged(event.target.value)}
-                            placeholder="keyword"/>
-                    </div>
-                </form>
-                <div className="form-group-append">
-                    <button
-                        onClick={() => this.searchSongs()}
-                        className="btn btn-primary">
-                        Search
-                    </button>
-                    {/* <span
-                        onClick={() => this.clearSearch}
-                        className="btn btn-primary">
-                        Clear
-                    </span> */}
-                </div>
-                <ul className="list-group">
-                {
-                    this.state.result.items.map(
-                        (song, index) => <SearchItem song={song} key={index} />
-                        )
+        return ( <
+                div >
+                <
+                h1 > Search by { this.state.searchBy } < /h1> <
+                button onClick = {
+                    () => this.switchSearchCategory('all')
                 }
-                </ul>
-            </div>
-        )
-    }
+                className = "btn btn-dark" >
+                All <
+                /button> <
+                button onClick = {
+                    () => this.switchSearchCategory('artists')
+                }
+                className = "btn btn-dark" >
+                Artists <
+                /button> <
+                button onClick = {
+                    () => this.switchSearchCategory('playlists')
+                }
+                className = "btn btn-dark" >
+                Playlists <
+                /button> <
+                form className = 'form' >
+                <
+                div className = "form-group" >
+                <
+                input type = 'search'
+                value = { this.state.keyword }
+                onChange = {
+                    (event) => this.keywordChanged(event.target.value)
+                }
+                placeholder = "keyword" / >
+                <
+                /div> < /
+                form > <
+                div className = "form-group-append" >
+                <
+                button onClick = {
+                    () => this.searchSongs()
+                }
+                className = "btn btn-primary" >
+                Search <
+                /button> {
+                /* <span
+                                        onClick={() => this.clearSearch}
+                                        className="btn btn-primary">
+                                        Clear
+                                    </span> */
+            } <
+            /div> <
+        ul className = "list-group" > {
+                this.state.result.items.map(
+                    (song, index) => < SearchItem song = { song }
+                    key = { index }
+                    />
+                )
+            } <
+            /ul> < /
+            div >
+    )
+}
 }
