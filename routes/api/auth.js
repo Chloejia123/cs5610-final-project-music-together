@@ -10,14 +10,23 @@ const {
     validationResult
 } = require('express-validator');
 
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 // @route   GET api/auth
 // @desc    Test route
 // @access  Public 
 router.get('/', auth, async(req, res) => {
+    console.log('1111');
     try {
+        console.log('2222');
         const user = await User.findById(req.user.id).select('-password');
         res.json(user)
     } catch (error) {
+        console.log('3333');
         console.error(error.message)
         res.status(500).send('Server Error');
     }

@@ -22,7 +22,7 @@ const Login = ({login, isAuthenticated}) => {
 
     //Redirect us to profile if login
     if(isAuthenticated) {
-        return <Redirect to='/dashboard'/>
+        return <Redirect to='/profile'/>
     }
 
     return (

@@ -20,6 +20,8 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case USER_LOADED:
+            // console.log(state);
+            // console.log(payload);
             return {
                 ...state,
                 isAuthenticated: true,
@@ -33,7 +35,7 @@ export default function(state = initialState, action) {
                 ...state,
                 ...payload,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
             };
         case LOGIN_FAIL:
         case REGISTER_FAIL:
