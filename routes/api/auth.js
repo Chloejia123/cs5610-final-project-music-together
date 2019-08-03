@@ -20,13 +20,10 @@ router.use(function(req, res, next) {
 // @desc    Test route
 // @access  Public 
 router.get('/', auth, async(req, res) => {
-    console.log('1111');
     try {
-        console.log('2222');
         const user = await User.findById(req.user.id).select('-password');
         res.json(user)
     } catch (error) {
-        console.log('3333');
         console.error(error.message)
         res.status(500).send('Server Error');
     }

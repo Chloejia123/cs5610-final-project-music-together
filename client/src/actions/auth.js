@@ -19,13 +19,12 @@ export const loadUser = () => async dispatch => {
 
     try {
         const res = await axios.get('/api/auth');
-        // payload is the data...
-        console.log('going to dispatch user loaded');
+
         dispatch({
          type: USER_LOADED,
          payload: res.data
         });
-        console.log('dispatched loadUser');
+
     } catch (err) {
         dispatch({
          type: AUTH_ERROR
@@ -77,21 +76,19 @@ export const login = (email, password) => async dispatch => {
 
     try {
         const res = await axios.post('/api/auth', body, config);
-        console.log('going to dispatch login')
+
         dispatch({
          type: LOGIN_SUCCESS,
          payload: res.data
         });
-        console.log('dispatched login success');
+
         dispatch(loadUser());
     } catch (err) {
-        console.log(err);
-        // const errors = err.response.data.errors;
-        // console.log(errors);
+        const errors = err.response && err.response.data.errors;
 
-        // if (errors) {
-        //     errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-        // }
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
 
         dispatch({
          type: LOGIN_FAIL

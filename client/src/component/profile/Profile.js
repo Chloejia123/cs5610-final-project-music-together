@@ -2,17 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loadUser } from '../../actions/auth';
 
-const Profile = ({auth}) => {
-    // console.log(auth);
-    const { isAuthenticated, user, loading } = auth;
-    // loadUser();
-    console.log('users')
-    console.log(loading)
-    console.log(isAuthenticated)
-    console.log(user)
-    console.log('done')
+const Profile = ({auth : { isAuthenticated, user, loading }}) => {
+    // doing loadUser here doesn't solve user undefined / null problem    
     const profile = (
         <div>
             Profile
@@ -51,7 +43,7 @@ const Profile = ({auth}) => {
 }
 
 Profile.propTypes = {
-    user: PropTypes.object
+    auth: PropTypes.object
 };
 
 const mapStateToProps = state => ({

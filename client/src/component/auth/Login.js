@@ -2,9 +2,9 @@ import React, {Fragment, useState} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { login, loadUser } from '../../actions/auth';
 
-const Login = ({login, isAuthenticated}) => {
+const Login = ({login, isAuthenticated, user}) => {
     const [formData, setFormData] = useState({
          email: '',
          password: ''
@@ -22,7 +22,10 @@ const Login = ({login, isAuthenticated}) => {
 
     //Redirect us to profile if login
     if(isAuthenticated) {
-        return <Redirect to='/profile'/>
+        if (user) { // if don't specify, will run into user undefined error on profile page
+        // problem: after login, page don't refresh
+            return <Redirect to='/profile'/>
+        }
     }
 
     return (
