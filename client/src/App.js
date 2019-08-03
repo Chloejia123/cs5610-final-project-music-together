@@ -12,6 +12,7 @@ import Alert from './component/layout/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Profile from './component/profile/Profile';
+import Profile2 from './component/profile/Profile2';
 
 
 if (localStorage.token) {

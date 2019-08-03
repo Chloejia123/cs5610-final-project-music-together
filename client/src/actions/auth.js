@@ -17,20 +17,47 @@ export const loadUser = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
 
+    // console.log('in load user');
+
     try {
         const res = await axios.get('/api/auth');
-
         dispatch({
-         type: USER_LOADED,
-         payload: res.data
-        });
+            type: USER_LOADED,
+            payload: res.data
+           });
 
+        // dispatch(loadUserProfile());
     } catch (err) {
         dispatch({
          type: AUTH_ERROR
         });
     }
 };
+
+// This action loads user profile
+export const loadUserProfile = () => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    // console.log('in load user profile')
+
+    try {
+        const res = await axios.get('/api/profile/me');
+        // console.log(res);
+
+        dispatch({
+            type: USER_LOADED,
+            payload: res.data
+        });
+        // console.log('done with user profile');
+    } catch (err) {
+        console.log(err)
+        dispatch({
+            type: AUTH_ERROR
+        })
+    }
+}
 
 // This action register User
 export const register = ({ name, email, password }) => async dispatch => {
@@ -83,6 +110,7 @@ export const login = (email, password) => async dispatch => {
         });
 
         dispatch(loadUser());
+        // loadUser();
     } catch (err) {
         const errors = err.response && err.response.data.errors;
 
