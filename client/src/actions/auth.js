@@ -17,8 +17,6 @@ export const loadUser = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
 
-    // console.log('in load user');
-
     try {
         const res = await axios.get('/api/auth');
         dispatch({
@@ -26,7 +24,6 @@ export const loadUser = () => async dispatch => {
             payload: res.data
            });
 
-        // dispatch(loadUserProfile());
     } catch (err) {
         dispatch({
          type: AUTH_ERROR
@@ -40,8 +37,6 @@ export const loadUserProfile = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
 
-    // console.log('in load user profile')
-
     try {
         const res = await axios.get('/api/profile/me');
         // console.log(res);
@@ -50,9 +45,8 @@ export const loadUserProfile = () => async dispatch => {
             type: USER_LOADED,
             payload: res.data
         });
-        // console.log('done with user profile');
+
     } catch (err) {
-        console.log(err)
         dispatch({
             type: AUTH_ERROR
         })
