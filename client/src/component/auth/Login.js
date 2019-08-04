@@ -22,10 +22,7 @@ const Login = ({login, isAuthenticated, user}) => {
 
     //Redirect us to profile if login
     if(isAuthenticated) {
-        if (user) { // if don't specify, will run into user undefined error on profile page
-        // problem: after login, page don't refresh
-            return <Redirect to='/profile'/>
-        }
+        return <Redirect to='/profile'/>
     }
 
     return (

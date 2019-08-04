@@ -9,14 +9,6 @@ class Profile2 extends React.Component {
         super(props)
         this.state = {
             show: 'basic',
-            editName: false,
-            editedName: '',
-            editEmail: false,
-            editedEmail: '',
-            editPassword: false,
-            editedPassword: '',
-            editMusic: false,
-            editSocial: false,
         }
     }
 
@@ -27,14 +19,16 @@ class Profile2 extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, _id}, isAuthenticated) => 
-        <div>
+    renderBasic = ({name, email, password, _id}, isAuthenticated) => {
+        return (<div>
             Profile
             <ProfileField field='Name' currentValue={name} />
             <ProfileField field='Email' currentValue={email} />
             <ProfileField field='Password' currentValue={password} />
 
-        </div>
+        </div>)
+    }
+
     
     // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
@@ -72,8 +66,7 @@ social: {facebook: "https://www.facebook.com/"}
      to do 
      1 allow changes to profile, send it back to server
      2 social & followers - not an array, how to display
-    
-     4 the weird user not loading immediately after login thing; have to do check here as well?
+     3 log out -- needs to actually log out and re-route
      5 related, whether to keep the Profile2, or can directly pass
      6 combine Profile2 and ProfileOther (use isAuthenticated to check for edit mode or not?? but then there's also the loadUser vs loadUserProfile differences)
      */

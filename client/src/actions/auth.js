@@ -121,7 +121,7 @@ export const login = (email, password) => async dispatch => {
         });
 
         dispatch(loadUser());
-        // loadUser();
+
     } catch (err) {
         const errors = err.response && err.response.data.errors;
 
