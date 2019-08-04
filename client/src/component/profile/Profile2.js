@@ -2,12 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser, loadUserProfile } from '../../actions/auth';
+import ProfileField from './ProfileField';
 
 class Profile2 extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             show: 'basic',
+            editName: false,
+            editedName: '',
+            editEmail: false,
+            editedEmail: '',
+            editPassword: false,
+            editedPassword: '',
+            editMusic: false,
+            editSocial: false,
         }
     }
 
@@ -21,25 +30,10 @@ class Profile2 extends React.Component {
     renderBasic = ({name, email, password, _id}, isAuthenticated) => 
         <div>
             Profile
-            <div>
-                Name
-                <br />
-                {name}
-                <input />
-            </div>
-            <div>
-                Email
-                <br />
-                {email}
-                <input />
-            </div>
-            <div>
-                Password
-                <br />
-                {password}
-                <input />
-            </div>
-            <div>{_id}</div>
+            <ProfileField field='Name' currentValue={name} />
+            <ProfileField field='Email' currentValue={email} />
+            <ProfileField field='Password' currentValue={password} />
+
         </div>
     
     // 5d2dabd1cb4fd1e003b47b9a --> david's id
@@ -48,37 +42,16 @@ class Profile2 extends React.Component {
     renderMusic = ({favouriteartists, favouritesongs}) => 
         <div>
             Music Profile
-            <div>
-                Favorite Artists
-                <br />
-                {favouriteartists}
-            </div>
-            <div>
-                Favorite Songs
-                <br />
-                {favouritesongs}
-            </div>
+            <ProfileField field='Favorite Artists' currentValue={favouriteartists} />
+            <ProfileField field='Favorite Songs' currentValue={favouritesongs} />
         </div>
     
 
     renderSocial = ({bio, followers, location, social}) => 
         <div>
             Social Profile
-            <div>
-                Bio
-                <br />
-                {bio}
-            </div>
-            <div>
-                Followers
-                <br />
-                {/* {followers.map(follower => console.log(follower))} */}
-            </div>
-            <div>
-                Location
-                <br />
-                {location}
-            </div>
+            <ProfileField field='Bio' currentValue={bio} />
+            <ProfileField field='Location' currentValue={location} />
             {/* <div>
                 Social Links
                 <br />
@@ -98,10 +71,11 @@ social: {facebook: "https://www.facebook.com/"}
     /*
      to do 
      1 allow changes to profile, send it back to server
-     2 social - not an array, how to display
-     3 how to show other users (use isAuthenticated to screen)
+     2 social & followers - not an array, how to display
+    
      4 the weird user not loading immediately after login thing; have to do check here as well?
      5 related, whether to keep the Profile2, or can directly pass
+     6 combine Profile2 and ProfileOther (use isAuthenticated to check for edit mode or not?? but then there's also the loadUser vs loadUserProfile differences)
      */
     renderProfile = (user, isAuthenticated) => {
         const section = this.state.show;
