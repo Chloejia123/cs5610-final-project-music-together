@@ -12,7 +12,6 @@ import Alert from './component/layout/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Profile from './component/profile/Profile';
-import Profile2 from './component/profile/Profile2';
 import ProfileOther from './component/profile/ProfileOther';
 
 
@@ -37,7 +36,7 @@ const App = () => {
                         <Route exact path='/search' component={Search} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
-                        <Route exact path='/profile' component={Profile2}/>
+                        <Route exact path='/profile' component={Profile}/>
                         <Route exact path='/profile/:userId' component={ProfileOther} />
                     </Switch>
                 </section>
