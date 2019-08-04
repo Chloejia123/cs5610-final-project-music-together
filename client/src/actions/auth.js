@@ -6,7 +6,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    VIEW_OTHERS
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -45,6 +46,22 @@ export const loadUserProfile = () => async dispatch => {
             type: USER_LOADED,
             payload: res.data
         });
+
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR
+        })
+    }
+}
+
+export const loadOtherUser = (userId) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/profile/user/${userId}`);
+
+        dispatch({
+            type: VIEW_OTHERS,
+            payload: res.data
+        })
 
     } catch (err) {
         dispatch({

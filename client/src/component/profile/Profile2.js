@@ -18,7 +18,7 @@ class Profile2 extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password}) => 
+    renderBasic = ({name, email, password, _id}, isAuthenticated) => 
         <div>
             Profile
             <div>
@@ -39,9 +39,10 @@ class Profile2 extends React.Component {
                 {password}
                 <input />
             </div>
-            {/* <div>{user._id}</div> */}
+            <div>{_id}</div>
         </div>
     
+    // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
 
     renderMusic = ({favouriteartists, favouritesongs}) => 
@@ -71,7 +72,7 @@ class Profile2 extends React.Component {
             <div>
                 Followers
                 <br />
-                {followers.map(follower => console.log(follower))}
+                {/* {followers.map(follower => console.log(follower))} */}
             </div>
             <div>
                 Location
@@ -102,11 +103,11 @@ social: {facebook: "https://www.facebook.com/"}
      4 the weird user not loading immediately after login thing; have to do check here as well?
      5 related, whether to keep the Profile2, or can directly pass
      */
-    renderProfile = (user) => {
+    renderProfile = (user, isAuthenticated) => {
         const section = this.state.show;
         switch(section) {
             case 'basic':
-                return this.renderBasic(user);
+                return this.renderBasic(user, isAuthenticated);
             case 'music': 
                 return this.renderMusic(user);
             case 'social':
@@ -124,7 +125,7 @@ social: {facebook: "https://www.facebook.com/"}
                 <button onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
                 <button onClick={() => this.updateShow('music', loadUserProfile)}>Music</button>
                 <button onClick={() => this.updateShow('social', loadUserProfile)}>Social</button>
-                {this.renderProfile(user)}
+                {this.renderProfile(user, isAuthenticated)}
             </div>
         )
     }

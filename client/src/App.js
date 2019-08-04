@@ -13,6 +13,7 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Profile from './component/profile/Profile';
 import Profile2 from './component/profile/Profile2';
+import ProfileOther from './component/profile/ProfileOther';
 
 
 if (localStorage.token) {
@@ -37,6 +38,7 @@ const App = () => {
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' component={Profile2}/>
+                        <Route exact path='/profile/:userId' component={ProfileOther} />
                     </Switch>
                 </section>
             </Fragment>
