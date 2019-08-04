@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, loadUserProfile } from '../../actions/auth';
+import { loadUser, loadUserProfile, updateProfile } from '../../actions/auth';
 import ProfileField from './ProfileField';
 
 class Profile extends React.Component {
@@ -11,7 +11,7 @@ class Profile extends React.Component {
             show: 'basic',
         }
     }
-
+    
     updateShow = (section, getUserInfo) => {
         getUserInfo();
         this.setState({
@@ -19,12 +19,12 @@ class Profile extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, _id}, isAuthenticated) => 
+    renderBasic = ({name, email, password, _id}, updateProfile) => 
         <div>
             Profile
-            <ProfileField field='Name' currentValue={name} />
-            <ProfileField field='Email' currentValue={email} />
-            <ProfileField field='Password' currentValue={password} />
+            <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateProfile} />
 
         </div>
 
@@ -32,19 +32,19 @@ class Profile extends React.Component {
     // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
 
-    renderMusic = ({favouriteartists, favouritesongs}) => 
+    renderMusic = ({favouriteartists, favouritesongs, _id }, updateProfile) => 
         <div>
             Music Profile
-            <ProfileField field='Favorite Artists' currentValue={favouriteartists} />
-            <ProfileField field='Favorite Songs' currentValue={favouritesongs} />
+            <ProfileField _id={_id} field='Favorite Artists' currentValue={favouriteartists} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} updateFunc={updateProfile} />
         </div>
     
 
-    renderSocial = ({bio, followers, location, social}) => 
+    renderSocial = ({bio, followers, location, social, _id}, updateProfile) => 
         <div>
             Social Profile
-            <ProfileField field='Bio' currentValue={bio} />
-            <ProfileField field='Location' currentValue={location} />
+            <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} />
             {/* <div>
                 Social Links
                 <br />
@@ -69,21 +69,22 @@ social: {facebook: "https://www.facebook.com/"}
      6 combine Profile2 and ProfileOther? 
         (use isAuthenticated to check for edit mode or not?? but then there's also the loadUser vs loadUserProfile differences)
      7 make things prettier
+     8 password, show, update?
      */
-    renderProfile = (user, isAuthenticated) => {
+    renderProfile = (user, isAuthenticated, updateProfile) => {
         const section = this.state.show;
         switch(section) {
             case 'basic':
-                return this.renderBasic(user, isAuthenticated);
+                return this.renderBasic(user, isAuthenticated, updateProfile);
             case 'music': 
-                return this.renderMusic(user);
+                return this.renderMusic(user, updateProfile);
             case 'social':
-                return this.renderSocial(user);
+                return this.renderSocial(user, updateProfile);
         }
     }
 
     render() {
-        const { loadUser, loadUserProfile } = this.props;
+        const { loadUser, loadUserProfile, updateProfile } = this.props;
         const { isAuthenticated, user, loading } = this.props.auth;
 
         return (
@@ -92,11 +93,10 @@ social: {facebook: "https://www.facebook.com/"}
                 <button onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
                 <button onClick={() => this.updateShow('music', loadUserProfile)}>Music</button>
                 <button onClick={() => this.updateShow('social', loadUserProfile)}>Social</button>
-                {this.renderProfile(user, isAuthenticated)}
+                {this.renderProfile(user, isAuthenticated, updateProfile)}
             </div>
         )
     }
-
 
 }
 
@@ -104,5 +104,5 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { loadUser, loadUserProfile })(Profile);
+export default connect(mapStateToProps, { loadUser, loadUserProfile, updateProfile })(Profile);
 // export default Profile2;

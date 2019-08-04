@@ -7,7 +7,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    VIEW_OTHERS
+    VIEW_OTHERS,
+    UPDATE_PROFILE,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -101,6 +102,35 @@ export const register = ({ name, email, password }) => async dispatch => {
         });
     }
 };
+
+// This action updates user profile
+export const updateProfile = (content) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+
+    try {
+
+        const res = axios.post('/api/profile', body, config);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        })
+        
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 // Login User
 export const login = (email, password) => async dispatch => {

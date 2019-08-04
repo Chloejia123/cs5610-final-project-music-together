@@ -43,10 +43,12 @@ router.get('/me', auth, async(req, res) => {
 // @route   POST api/profile
 // @desc    create/update a user profile
 // @access  Private 
-router.post('/', [auth, [
-        check('favouritesongs', 'Please tell us at least one of your favourite songs').exists(),
-        check('favouriteartists', 'Please tell us at least one of your favourite artists').exists(),
-    ]],
+router.post('/', [auth, 
+    // [
+    //     check('favouritesongs', 'Please tell us at least one of your favourite songs').exists(),
+    //     check('favouriteartists', 'Please tell us at least one of your favourite artists').exists(),
+    // ]
+],
     async(req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -68,7 +70,9 @@ router.post('/', [auth, [
         } = req.body;
 
         const profileFields = {};
+
         profileFields.user = req.user.id;
+        
         if (bio) {
             profileFields.bio = bio;
         }
@@ -76,10 +80,12 @@ router.post('/', [auth, [
             profileFields.location = location;
         }
         if (favouritesongs) {
-            profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
+            // profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
+            profileFields.favouritesongs = favouritesongs
         }
         if (favouriteartists) {
-            profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
+            // profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
+            profileFields.favouriteartists = favouriteartists
         }
         if (followers) {
             profileFields.followers = followers;
@@ -124,6 +130,7 @@ router.post('/', [auth, [
             await profile.save();
             res.json(profile)
         } catch (error) {
+            console.log('here')
             console.error(error.message)
             res.status(500).send('Server Error')
         }

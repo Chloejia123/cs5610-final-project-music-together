@@ -10,8 +10,11 @@ export default class ProfileField extends React.Component {
     }
 
 
-    save = () => {
-        // send a request to update name
+    save = (updateFunc, _id, field, value) => {
+        let snippet = {}
+        snippet['id'] = _id
+        snippet[field.toLowerCase()] = value
+        updateFunc(snippet)
         const { edit } = this.state
         this.setState({
             edit: !edit,
@@ -33,7 +36,7 @@ export default class ProfileField extends React.Component {
     }
 
     render() {
-        const { field, currentValue } = this.props
+        const { _id, field, currentValue, updateFunc } = this.props
         return (
             <div>
                 {field}
@@ -44,7 +47,9 @@ export default class ProfileField extends React.Component {
                         onChange={(event) => this.change(event.target.value)} /> :
                     currentValue
                 }
-                <button onClick={() => this.state.edit ? this.save() : this.edit()}>Edit</button>
+                <button onClick={() => this.state.edit ? 
+                    this.save(updateFunc, _id, field, this.state.value) : 
+                    this.edit()}>Edit</button>
             </div>
         )
     }
