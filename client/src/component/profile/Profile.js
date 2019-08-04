@@ -11,7 +11,7 @@ class Profile extends React.Component {
             show: 'basic',
         }
     }
-    
+
     updateShow = (section, getUserInfo) => {
         getUserInfo();
         this.setState({
@@ -52,18 +52,8 @@ class Profile extends React.Component {
             </div> */}
         </div>
     /*
-    bio: "Random bio..."
-date: "2019-07-17T03:35:17.283Z"
-favouriteartists: ["Muse"]
-favouritesongs: (2) ["Supermassive Blackhole", "Time is running out"]
-followers: []
-location: "San Jose"
-social: {facebook: "https://www.facebook.com/"}
-    */
-
-    /*
      to do 
-     1 allow changes to profile, send it back to server
+     1 allow changes to profile, send it back to server - auto refresh not triggered after update
      2 social & followers - not an array, how to display
      3 log out -- needs to actually log out and re-route
      6 combine Profile2 and ProfileOther? 
@@ -105,4 +95,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { loadUser, loadUserProfile, updateProfile })(Profile);
-// export default Profile2;
