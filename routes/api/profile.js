@@ -129,6 +129,7 @@ router.post('/', [auth,
             profile = new Profile(profileFields);
             await profile.save();
             res.json(profile)
+            // deep copy
         } catch (error) {
             console.log('here')
             console.error(error.message)

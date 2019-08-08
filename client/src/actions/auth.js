@@ -119,8 +119,8 @@ export const updateProfile = (content) => async dispatch => {
 
     try {
 
-        const res = axios.post('/api/profile', body, config);
-
+        const res = await axios.post('/api/profile', body, config);
+        
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
