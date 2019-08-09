@@ -37,12 +37,12 @@ export default class ProfileField extends React.Component {
     }
 
     render() {
-        const { _id, field, currentValue, updateFunc } = this.props
+        const { _id, field, currentValue, updateFunc, isAuthenticated } = this.props
         
         return (
             <div className="nugget">
                 <h2 className="subtitle text-primary">{field}</h2>
-                {this.state.edit ? 
+                {isAuthenticated && this.state.edit ? 
                     <input 
                         defaultValue={currentValue} 
                         onChange={(event) => this.change(event.target.value)} /> :

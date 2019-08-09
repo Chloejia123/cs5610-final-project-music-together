@@ -19,12 +19,12 @@ class Profile extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, _id}, isAthenticated, updateUser) => 
+    renderBasic = ({name, email, password, _id}, isAuthenticated, updateUser) => 
         <div>
             <h1 className="large text-primary">Profile</h1>
-            <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} />
-            <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} />
-            <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateUser} />
+            <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
+            <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
+            <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
 
         </div>
 
@@ -32,15 +32,18 @@ class Profile extends React.Component {
     // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
 
-    renderMusic = ({favouriteartists, favouritesongs, _id }, updateProfile) => 
+    renderMusic = ({favouriteartists, favouritesongs, _id }, isAuthenticated, updateProfile) => 
         <div>
             <h2 className="large text-primary">Music Profile</h2>
-            <ProfileField _id={_id} field='Favorite Artists' currentValue={favouriteartists} updateFunc={updateProfile} />
-            <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Favorite Artists' 
+                currentValue={favouriteartists} updateFunc={updateProfile} 
+                isAthenticated={isAuthenticated}/>
+            <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
+                updateFunc={updateProfile} isAuthenticated={isAuthenticated}/>
         </div>
     
 
-    renderSocial = ({bio, followers, location, social, _id}, updateProfile) => 
+    renderSocial = ({bio, followers, location, social, _id}, isAuthenticated, updateProfile) => 
         <div>
             <h3 className="large text-primary">Social Profile</h3>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile} />
@@ -67,9 +70,9 @@ class Profile extends React.Component {
             case 'basic':
                 return this.renderBasic(user, isAuthenticated, updateUser);
             case 'music': 
-                return this.renderMusic(profile, updateProfile);
+                return this.renderMusic(profile, isAuthenticated, updateProfile);
             case 'social':
-                return this.renderSocial(profile, updateProfile);
+                return this.renderSocial(profile, isAuthenticated, updateProfile);
         }
     }
 

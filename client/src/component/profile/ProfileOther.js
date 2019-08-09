@@ -99,10 +99,15 @@ class ProfileOther extends React.Component {
     render() {
         return (
             <div>
-                {/* Others */}
-                <button onClick={() => this.updateShow('basic')}>Basic</button>
-                <button onClick={() => this.updateShow('music')}>Music</button>
-                <button onClick={() => this.updateShow('social')}>Social</button>
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('basic')}>Basic</button>
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('music')}>Music</button>
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('social')}>Social</button>
                 {this.renderProfile()}
             </div>
         )
