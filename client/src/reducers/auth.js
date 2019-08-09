@@ -6,7 +6,9 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL, LOGOUT, 
+    UPDATE_USER,
     UPDATE_PROFILE,
+    VIEW_MY_PROFILE,
 } from '../actions/types';
 
 
@@ -15,6 +17,9 @@ const initialState = {
     isAuthenticated: null,
     loading: true,
     user: {
+    },
+    profile: {
+
     }
 };
 
@@ -23,17 +28,27 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case USER_LOADED:
-        case UPDATE_PROFILE:
+        case UPDATE_USER:
             return {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
                 user: payload
             };
+        case VIEW_MY_PROFILE:
+            return {
+                ...state,
+                profile: payload
+            }
+        case UPDATE_PROFILE:
+            return {
+                ...state,
+                profile: payload
+            }
         case VIEW_OTHERS:
             return {
                 ...state,
-                user: payload
+                profile: payload
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:

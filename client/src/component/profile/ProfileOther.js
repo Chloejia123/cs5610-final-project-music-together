@@ -27,15 +27,15 @@ class ProfileOther extends React.Component {
 
     renderProfile = () => {
         const section = this.state.show;
-        const { user } = this.props.auth;
-        if (user) { // is this really necessary?
+        const { profile } = this.props.auth;
+        if (profile && profile.user) { // is this really necessary?
             switch(section) {
                 case 'basic':
-                    return this.renderBasic(user.user);
+                    return this.renderBasic(profile.user);
                 case 'music': 
-                    return this.renderMusic(user);
+                    return this.renderMusic(profile);
                 case 'social':
-                    return this.renderSocial(user);
+                    return this.renderSocial(profile);
             }
         }
     }
@@ -47,7 +47,6 @@ class ProfileOther extends React.Component {
                 Name
                 <br />
                 {name}
-                <input />
             </div>
 
             <div>{_id}</div>
@@ -98,9 +97,9 @@ class ProfileOther extends React.Component {
         </div>
 
     render() {
-
         return (
             <div>
+                {/* Others */}
                 <button onClick={() => this.updateShow('basic')}>Basic</button>
                 <button onClick={() => this.updateShow('music')}>Music</button>
                 <button onClick={() => this.updateShow('social')}>Social</button>

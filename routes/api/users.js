@@ -91,4 +91,47 @@ router.post('/', [
 
 });
 
+// @route   POST api/users/:userId
+// @desc    Update an existing new user
+// @access  Public 
+router.post('/:userId', [
+], async(req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        });
+    }
+
+    const id = req.params['userId']
+    try {
+        let user = await User.findOne({
+            _id: id
+        });
+
+        if (user) {
+
+            user = await User.findOneAndUpdate({
+                _id: id
+            }, {
+                $set: req.body
+            }, {
+                new: true
+            })
+
+            return res.json(user)
+        }
+        // user = new User();
+        // await user.save();
+        // res.json(user)
+
+    } catch (error) {
+        console.log('here')
+        console.error(error.message)
+        res.status(500).send('Server Error')
+    }
+
+});
+
 module.exports = router;

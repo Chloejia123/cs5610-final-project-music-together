@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, loadUserProfile, updateProfile } from '../../actions/auth';
+import { loadUser, loadUserProfile, updateUser, updateProfile } from '../../actions/auth';
 import ProfileField from './ProfileField';
 
 class Profile extends React.Component {
@@ -19,12 +19,13 @@ class Profile extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, _id}, updateProfile) => 
+    renderBasic = ({name, email, password, _id}, isAthenticated, updateUser) => 
         <div>
+
             Profile
-            <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateProfile} />
-            <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateProfile} />
-            <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateProfile} />
+            <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} />
+            <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} />
+            <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateUser} />
 
         </div>
 
@@ -61,21 +62,22 @@ class Profile extends React.Component {
      7 make things prettier
      8 password, show, update?
      */
-    renderProfile = (user, isAuthenticated, updateProfile) => {
+    renderProfile = (user, profile, isAuthenticated, updateUser, updateProfile) => {
         const section = this.state.show;
         switch(section) {
             case 'basic':
-                return this.renderBasic(user, isAuthenticated, updateProfile);
+                return this.renderBasic(user, isAuthenticated, updateUser);
             case 'music': 
-                return this.renderMusic(user, updateProfile);
+                return this.renderMusic(profile, updateProfile);
             case 'social':
-                return this.renderSocial(user, updateProfile);
+                return this.renderSocial(profile, updateProfile);
         }
     }
 
     render() {
-        const { loadUser, loadUserProfile, updateProfile } = this.props;
-        const { isAuthenticated, user, loading } = this.props.auth;
+        const { loadUser, loadUserProfile, updateUser, updateProfile } = this.props;
+        const { isAuthenticated, user, loading, profile } = this.props.auth;
+
 
         return (
             
@@ -83,7 +85,7 @@ class Profile extends React.Component {
                 <button onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
                 <button onClick={() => this.updateShow('music', loadUserProfile)}>Music</button>
                 <button onClick={() => this.updateShow('social', loadUserProfile)}>Social</button>
-                {this.renderProfile(user, isAuthenticated, updateProfile)}
+                {this.renderProfile(user, profile, isAuthenticated, updateUser, updateProfile)}
             </div>
         )
     }
@@ -94,4 +96,6 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { loadUser, loadUserProfile, updateProfile })(Profile);
+export default connect(mapStateToProps, 
+                        { loadUser, loadUserProfile, updateUser, updateProfile })
+                (Profile);

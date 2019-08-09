@@ -8,7 +8,9 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     VIEW_OTHERS,
+    UPDATE_USER,
     UPDATE_PROFILE,
+    VIEW_MY_PROFILE,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -21,6 +23,7 @@ export const loadUser = () => async dispatch => {
 
     try {
         const res = await axios.get('/api/auth');
+
         dispatch({
             type: USER_LOADED,
             payload: res.data
@@ -41,10 +44,9 @@ export const loadUserProfile = () => async dispatch => {
 
     try {
         const res = await axios.get('/api/profile/me');
-        // console.log(res);
 
         dispatch({
-            type: USER_LOADED,
+            type: VIEW_MY_PROFILE,
             payload: res.data
         });
 
@@ -103,6 +105,37 @@ export const register = ({ name, email, password }) => async dispatch => {
     }
 };
 
+export const updateUser = (content) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+    const id = content.id;
+
+
+    try {
+
+        const res = await axios.post(`/api/users/${id}`, body, config);
+
+        dispatch({
+            type: UPDATE_USER,
+            payload: res.data
+        })
+        
+
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 // This action updates user profile
 export const updateProfile = (content) => async dispatch => {
     if (localStorage.token) {
@@ -116,11 +149,10 @@ export const updateProfile = (content) => async dispatch => {
     };
 
     const body = JSON.stringify(content);
-
     try {
 
         const res = await axios.post('/api/profile', body, config);
-        
+
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data

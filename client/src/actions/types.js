@@ -9,3 +9,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const VIEW_OTHERS = 'VIEW_OTHERS';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const VIEW_MY_PROFILE = 'VIEW_MY_PROFILE';
+export const UPDATE_USER = 'UPDATE_USER';

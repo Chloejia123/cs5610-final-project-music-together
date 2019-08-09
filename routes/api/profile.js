@@ -56,11 +56,13 @@ router.post('/', [auth,
                 errors: errors.array()
             })
         }
+        console.log(req.body)
+        console.log(req.user)
         const {
             bio,
             location,
-            favouritesongs,
-            favouriteartists,
+            // favouritesongs,
+            // favouriteartists,
             followers,
             soundtrackusername,
             youtube,
@@ -68,6 +70,8 @@ router.post('/', [auth,
             facebook,
             instagram
         } = req.body;
+        const favouritesongs = req.body['favorite songs']
+        const favouriteartists = req.body['favorite artists']
 
         const profileFields = {};
 
@@ -80,12 +84,12 @@ router.post('/', [auth,
             profileFields.location = location;
         }
         if (favouritesongs) {
-            // profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
-            profileFields.favouritesongs = favouritesongs
+            profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
+            // profileFields.favouritesongs = favouritesongs
         }
         if (favouriteartists) {
-            // profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
-            profileFields.favouriteartists = favouriteartists
+            profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
+            // profileFields.favouriteartists = favouriteartists
         }
         if (followers) {
             profileFields.followers = followers;
