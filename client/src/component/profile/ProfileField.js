@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+
 
 export default class ProfileField extends React.Component {
     constructor(props) {
@@ -37,20 +38,25 @@ export default class ProfileField extends React.Component {
 
     render() {
         const { _id, field, currentValue, updateFunc } = this.props
+        
         return (
-            <div>
-                {field}
-                <br />
+            <Fragment>
+                <h2 className="lead text-primary">{field}</h2>
+
                 {this.state.edit ? 
                     <input 
                         defaultValue={currentValue} 
                         onChange={(event) => this.change(event.target.value)} /> :
                     currentValue
                 }
-                <button onClick={() => this.state.edit ? 
+                <br />
+                <button 
+                    className="btn btn-light"
+                    onClick={() => this.state.edit ? 
                     this.save(updateFunc, _id, field, this.state.value) : 
                     this.edit()}>Edit</button>
-            </div>
+            </Fragment>
+
         )
     }
 

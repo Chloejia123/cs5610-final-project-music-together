@@ -21,8 +21,7 @@ class Profile extends React.Component {
 
     renderBasic = ({name, email, password, _id}, isAthenticated, updateUser) => 
         <div>
-
-            Profile
+            <h1 className="large text-primary">Profile</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} />
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} />
             <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateUser} />
@@ -35,7 +34,7 @@ class Profile extends React.Component {
 
     renderMusic = ({favouriteartists, favouritesongs, _id }, updateProfile) => 
         <div>
-            Music Profile
+            <h2 className="large text-primary">Music Profile</h2>
             <ProfileField _id={_id} field='Favorite Artists' currentValue={favouriteartists} updateFunc={updateProfile} />
             <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} updateFunc={updateProfile} />
         </div>
@@ -43,7 +42,7 @@ class Profile extends React.Component {
 
     renderSocial = ({bio, followers, location, social, _id}, updateProfile) => 
         <div>
-            Social Profile
+            <h3 className="large text-primary">Social Profile</h3>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile} />
             <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} />
             {/* <div>
@@ -80,12 +79,19 @@ class Profile extends React.Component {
 
 
         return (
-            
-            <div>
-                <button onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
-                <button onClick={() => this.updateShow('music', loadUserProfile)}>Music</button>
-                <button onClick={() => this.updateShow('social', loadUserProfile)}>Social</button>
+
+            <div className="profile">
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('music', loadUserProfile)}>Music</button>
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => this.updateShow('social', loadUserProfile)}>Social</button>
                 {this.renderProfile(user, profile, isAuthenticated, updateUser, updateProfile)}
+
             </div>
         )
     }
