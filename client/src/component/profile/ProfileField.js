@@ -40,9 +40,8 @@ export default class ProfileField extends React.Component {
         const { _id, field, currentValue, updateFunc } = this.props
         
         return (
-            <Fragment>
-                <h2 className="lead text-primary">{field}</h2>
-
+            <div className="nugget">
+                <h2 className="subtitle text-primary">{field}</h2>
                 {this.state.edit ? 
                     <input 
                         defaultValue={currentValue} 
@@ -55,7 +54,7 @@ export default class ProfileField extends React.Component {
                     onClick={() => this.state.edit ? 
                     this.save(updateFunc, _id, field, this.state.value) : 
                     this.edit()}>Edit</button>
-            </Fragment>
+            </div>
 
         )
     }

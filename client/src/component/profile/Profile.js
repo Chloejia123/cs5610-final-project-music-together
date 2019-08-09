@@ -80,7 +80,7 @@ class Profile extends React.Component {
 
         return (
 
-            <div className="profile">
+            <div>
                 <button 
                     className="btn btn-dark"
                     onClick={() => this.updateShow('basic', loadUser)}>Basic</button>
