@@ -118,48 +118,43 @@ export default class Search extends React.Component {
 
     render() {
         return ( <
-                div >
-                <
-                h1 > Search by { this.state.searchBy } < /h1> <
-                button onClick = {
-                    () => this.switchSearchCategory('all')
-                }
-                className = "btn btn-dark" >
-                All <
-                /button> <
-                button onClick = {
-                    () => this.switchSearchCategory('artists')
-                }
-                className = "btn btn-dark" >
-                Artists <
-                /button> <
-                button onClick = {
-                    () => this.switchSearchCategory('playlists')
-                }
-                className = "btn btn-dark" >
-                Playlists <
-                /button> <
-                form className = 'form' >
-                <
-                div className = "form-group" >
-                <
-                input type = 'search'
-                value = { this.state.keyword }
-                onChange = {
-                    (event) => this.keywordChanged(event.target.value)
-                }
-                placeholder = "keyword" / >
-                <
-                /div> < /
-                form > <
-                div className = "form-group-append" >
-                <
-                button onClick = {
-                    () => this.searchSongs()
-                }
-                className = "btn btn-primary" >
-                Search <
-                /button> {
+            div >
+            <
+            h1 > Search by { this.state.searchBy } < /h1> <
+            button onClick = {
+                () => this.switchSearchCategory('all') }
+            className = "btn btn-dark" >
+            All <
+            /button> <
+            button onClick = {
+                () => this.switchSearchCategory('artists') }
+            className = "btn btn-dark" >
+            Artists <
+            /button> <
+            button onClick = {
+                () => this.switchSearchCategory('playlists') }
+            className = "btn btn-dark" >
+            Playlists <
+            /button> <
+            form className = 'form' >
+            <
+            div className = "form-group" >
+            <
+            input type = 'search'
+            value = { this.state.keyword }
+            onChange = {
+                (event) => this.keywordChanged(event.target.value) }
+            placeholder = "keyword" / >
+            <
+            /div> <
+            /form> <
+            div className = "form-group-append" >
+            <
+            button onClick = {
+                () => this.searchSongs() }
+            className = "btn btn-primary" >
+            Search <
+            /button> {
                 /* <span
                                         onClick={() => this.clearSearch}
                                         className="btn btn-primary">
@@ -167,15 +162,15 @@ export default class Search extends React.Component {
                                     </span> */
             } <
             /div> <
-        ul className = "list-group" > {
+            ul className = "list-group" > {
                 this.state.result.items.map(
                     (song, index) => < SearchItem song = { song }
                     key = { index }
                     />
                 )
             } <
-            /ul> < /
-            div >
-    )
-}
+            /ul> <
+            /div>
+        )
+    }
 }
