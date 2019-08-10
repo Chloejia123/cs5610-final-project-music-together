@@ -3,21 +3,26 @@ import { Link, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { login, loadUser } from '../../actions/auth';
+const GENERAL_USER = 'General User';
+const ADMIN = 'Admin';
 
 const Login = ({login, isAuthenticated, user}) => {
     const [formData, setFormData] = useState({
          email: '',
-         password: ''
+         password: '',
+         roleType: ''
      });
 
-    const { email, password } = formData;
+    const { email, password, roleType } = formData;
 
-    const onChange = e =>
+    const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+        
 
     const onSubmit = async e => {
         e.preventDefault();
-        login(email, password);
+        login(email, password, roleType);
     };
 
     //Redirect us to profile if login
@@ -52,6 +57,12 @@ const Login = ({login, isAuthenticated, user}) => {
                             onChange={e => onChange(e)}
                             minLength='6'
                         />
+                    </div>
+                    <div>
+                    <select type='roleType' name='roleType' value={roleType} onChange={e => onChange(e)} className='form-group'>
+                        <option>{GENERAL_USER}</option>
+                        <option>{ADMIN}</option>
+                    </select>
                     </div>
                     <input type='submit' className='btn btn-primary' value='Login' />
                 </form>

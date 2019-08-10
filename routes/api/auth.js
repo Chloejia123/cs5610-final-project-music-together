@@ -71,6 +71,8 @@ router.post('/', [
             });
         }
 
+        console.log(roleType);
+
         const payload = {
             user: {
                 id: user.id
