@@ -1,6 +1,7 @@
 import React from 'react'
 import { loadOtherUser } from '../../actions/auth';
 import { connect } from 'react-redux';
+import ProfileField from './ProfileField';
 
 class ProfileOther extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class ProfileOther extends React.Component {
     }
 
     componentDidMount() {
-        this.props.loadOtherUser(this.state.userId);
+        this.props.loadOtherUser(this.state.userId, this.props.auth.isAuthenticated);
     }
 
     updateShow = (section) => {
@@ -28,7 +29,7 @@ class ProfileOther extends React.Component {
     renderProfile = () => {
         const section = this.state.show;
         const { profile } = this.props.auth;
-        if (profile && profile.user) { // is this really necessary?
+        if (profile && profile.user) { 
             switch(section) {
                 case 'basic':
                     return this.renderBasic(profile.user);
@@ -42,53 +43,32 @@ class ProfileOther extends React.Component {
 
     renderBasic = ({name, _id}) => 
         <div>
-            Profile
-            <div>
-                Name
-                <br />
-                {name}
-            </div>
-
-            <div>{_id}</div>
+            <h1 className="large text-primary">Profile</h1>
+            <ProfileField _id={_id} field='Name' currentValue={name} 
+                isAuthenticated={false}/>
         </div>
     
     // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
 
-    renderMusic = ({favouriteartists, favouritesongs}) => 
-        <div>
-            Music Profile
-            <div>
-                Favorite Artists
-                <br />
-                {favouriteartists}
-            </div>
-            <div>
-                Favorite Songs
-                <br />
-                {favouritesongs}
-            </div>
-        </div>
+    renderMusic = ({favouriteartists, favouritesongs, _id}) => 
+    <div>
+        <h2 className="large text-primary">Music Profile</h2>
+        <ProfileField _id={_id} field='Favorite Artists' 
+            currentValue={favouriteartists} 
+            isAuthenticated={false}/>
+        <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
+            isAuthenticated={false}/>
+    </div>
     
 
-    renderSocial = ({bio, followers, location, social}) => 
+    renderSocial = ({bio, followers, location, social, _id}) => 
         <div>
-            Social Profile
-            <div>
-                Bio
-                <br />
-                {bio}
-            </div>
-            <div>
-                Followers
-                <br />
-                {/* {followers.map(follower => console.log(follower))} */}
-            </div>
-            <div>
-                Location
-                <br />
-                {location}
-            </div>
+            <h3 className="large text-primary">Social Profile</h3>
+            <ProfileField _id={_id} field='Bio' currentValue={bio} 
+                isAuthenticated={false} />
+            <ProfileField _id={_id} field='Location' currentValue={location} 
+                isAuthenticated={false} />
             {/* <div>
                 Social Links
                 <br />

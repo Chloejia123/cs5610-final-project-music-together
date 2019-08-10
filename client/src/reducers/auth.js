@@ -21,7 +21,6 @@ const initialState = {
     profile: {
         user: {},
     },
-    reload: true,
 };
 
 export default function(state = initialState, action) {
@@ -50,7 +49,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 profile: payload,
-                reload: false,
+                reload: true,
                 loading: false,
                 isAuthenticated: isAuthenticated,
             }

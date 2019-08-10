@@ -22,9 +22,7 @@ if (localStorage.token) {
 const App = () => {
 
     useEffect(() => {
-        if (store.getState().auth.reload) {
-            store.dispatch(loadUser());
-        }
+        store.dispatch(loadUser());
     }, []);
 
     return (
@@ -40,7 +38,7 @@ const App = () => {
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' component={Profile}/>
-                        <Route exact path='/profile/:userId' component={Profile} />
+                        <Route exact path='/profile/:userId' component={ProfileOther} />
                     </Switch>
                 </section>
             </Fragment>

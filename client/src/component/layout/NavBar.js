@@ -11,7 +11,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 <Link to='/search'>Search(Prototype Demo)</Link>
             </li>
             <li>
-                <Link to='/profiles'>Musicians</Link>
+                <Link to='/profile/5d2dabd1cb4fd1e003b47b9a'>Musicians</Link>
             </li>
             <li>
                 <Link to='/posts'>Posts</Link>
@@ -37,7 +37,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 <Link to='/search'>Search(Prototype Demo)</Link>
             </li>
             <li>
-                <Link to='/profiles'>Musicians</Link>
+                <Link to='/profile/5d2dabd1cb4fd1e003b47b9a'>Musicians</Link>
             </li>
             <li>
                 <Link to='/register'>Register</Link>
