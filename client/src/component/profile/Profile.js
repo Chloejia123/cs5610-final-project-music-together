@@ -19,13 +19,13 @@ class Profile extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, _id}, isAuthenticated, updateUser) => 
+    renderBasic = ({name, email, password, roleType, _id}, isAuthenticated, updateUser) => 
         <div>
             <h1 className="large text-primary">Profile</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Password' currentValue={password} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
-
+            <ProfileField _id={_id} field='roleType' currentValue={roleType} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
         </div>
 
     
