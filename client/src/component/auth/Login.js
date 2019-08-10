@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { login, loadUser } from '../../actions/auth';
 
-
 const Login = ({login, isAuthenticated, user}) => {
     const [formData, setFormData] = useState({
          email: '',
@@ -13,9 +12,7 @@ const Login = ({login, isAuthenticated, user}) => {
 
     const { email, password } = formData;
 
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
         
 
     const onSubmit = async e => {
@@ -55,8 +52,6 @@ const Login = ({login, isAuthenticated, user}) => {
                             onChange={e => onChange(e)}
                             minLength='6'
                         />
-                    </div>
-                    <div>
                     </div>
                     <input type='submit' className='btn btn-primary' value='Login' />
                 </form>
