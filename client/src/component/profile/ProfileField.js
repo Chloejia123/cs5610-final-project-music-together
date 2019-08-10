@@ -49,13 +49,16 @@ export default class ProfileField extends React.Component {
                     currentValue
                 }
                 <br />
-                <button 
-                    className="btn btn-light"
-                    onClick={() => this.state.edit ? 
-                    this.save(updateFunc, _id, field, this.state.value) : 
-                    this.edit()}>Edit</button>
+                {isAuthenticated ? 
+                    <button 
+                        className="btn btn-light"
+                        onClick={() => this.state.edit ? 
+                        this.save(updateFunc, _id, field, this.state.value) : 
+                        this.edit()}>Edit
+                    </button> : 
+                    <div></div>
+                }
             </div>
-
         )
     }
 

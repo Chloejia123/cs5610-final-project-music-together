@@ -42,6 +42,7 @@ export const loadUserProfile = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
 
+
     try {
         const res = await axios.get('/api/profile/me');
 
@@ -57,13 +58,14 @@ export const loadUserProfile = () => async dispatch => {
     }
 }
 
-export const loadOtherUser = (userId) => async dispatch => {
+export const loadOtherUser = (userId, isAuthenticated = false) => async dispatch => {
     try {
         const res = await axios.get(`/api/profile/user/${userId}`);
 
         dispatch({
             type: VIEW_OTHERS,
-            payload: res.data
+            payload: res.data,
+            isAuthenticated: isAuthenticated,
         })
 
     } catch (err) {

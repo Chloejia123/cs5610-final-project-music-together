@@ -19,12 +19,13 @@ const initialState = {
     user: {
     },
     profile: {
-
-    }
+        user: {},
+    },
+    reload: true,
 };
 
 export default function(state = initialState, action) {
-    const { type, payload } = action;
+    const { type, payload, isAuthenticated } = action;
 
     switch (type) {
         case USER_LOADED:
@@ -48,7 +49,10 @@ export default function(state = initialState, action) {
         case VIEW_OTHERS:
             return {
                 ...state,
-                profile: payload
+                profile: payload,
+                reload: false,
+                loading: false,
+                isAuthenticated: isAuthenticated,
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
