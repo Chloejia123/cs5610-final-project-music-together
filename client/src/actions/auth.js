@@ -11,6 +11,7 @@ import {
     UPDATE_USER,
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
+    FIND_USERS_ARTISTS,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -35,6 +36,7 @@ export const loadUser = () => async dispatch => {
         });
     }
 };
+
 
 // This action loads user profile
 export const loadUserProfile = () => async dispatch => {
@@ -72,6 +74,56 @@ export const loadOtherUser = (userId, isAuthenticated = false) => async dispatch
         dispatch({
             type: AUTH_ERROR
         })
+    }
+}
+
+export const findUserWhoLikedArtist = (artistId) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    try {
+        const res = await axios.get(`/api/profile/artist/${artistId}`)
+        
+        dispatch({
+            type: FIND_USERS_ARTISTS,
+            payload: res.data
+        })
+
+
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+export const addFavoriteArtist = (content, id) => async dispatch => {
+    console.log('111')
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+    // const artistId = content.artistId;
+    console.log(body)
+    // console.log(artistId)
+
+    try {
+        const res = await axios.post(`/api/profile/artist/${id}`, body, config);
+        // console.log(res)
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        })
+
+    } catch (err) {
+        console.log(err)
     }
 }
 

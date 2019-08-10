@@ -98,19 +98,17 @@ router.post('/', [auth,
             profileFields.soundtrackusername = soundtrackusername;
         }
 
-        profileFields.social = {};
-
         if (youtube) {
-            profileFields.social.youtube = youtube;
+            profileFields.youtube = youtube;
         }
         if (twitter) {
-            profileFields.social.twitter = twitter;
+            profileFields.twitter = twitter;
         }
         if (facebook) {
-            profileFields.social.facebook = facebook;
+            profileFields.facebook = facebook;
         }
         if (instagram) {
-            profileFields.social.instagram = instagram;
+            profileFields.instagram = instagram;
         }
 
         console.log(profileFields.favouritesongs)
@@ -142,12 +140,93 @@ router.post('/', [auth,
     },
 );
 
+
+// @route   POST api/profile/artist/:artistId
+// @desc    update a user's favorite artist
+// @access  Private 
+router.post('/artist/:artistId', [auth, 
+],
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        }
+        console.log(req.body)
+        console.log(req.user)
+        // const {
+        //     bio,
+        //     location,
+        //     // favouritesongs,
+        //     // favouriteartists,
+        //     followers,
+        //     soundtrackusername,
+        //     youtube,
+        //     twitter,
+        //     facebook,
+        //     instagram
+        // } = req.body;
+        // const favouritesongs = req.body['favorite songs']
+        // const favouriteartists = req.body['favorite artists']
+        const artist = req.body['artist']
+        const artistId = req.params.artistId
+
+        // const profileFields = {};
+
+        try {
+            let profile = await Profile.findOne({
+                user: req.body.id
+            });
+            if (profile) {
+                profile = await Profile.findOneAndUpdate({
+                    user: req.body.id
+                }, {
+                    $push: 
+                    {
+                        favouriteartistsId: artistId,
+                        favouriteartists: artist
+                    }
+                }, {
+                    new: true
+                })
+                return res.json(profile)
+            }
+            profile = new Profile(profileFields);
+            await profile.save();
+            res.json(profile)
+            // deep copy
+        } catch (error) {
+            console.log('here')
+            console.error(error.message)
+            res.status(500).send('Server Error')
+        }
+    },
+);
+
+
 // @route   GET api/profile
 // @desc    Get all profiles
 // @access  Public
 router.get('/', async(req, res) => {
     try {
         const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+        res.json(profiles);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   GET api/profile/artist/:artistId
+// @desc    Get all profiles
+// @access  Public
+router.get('/artist/:artistId', async(req, res) => {
+    try {
+        const profiles = await Profile.find({
+            favouriteartistsId: req.params.artistId
+        },{user: 1}).populate('user', ['name', 'avatar']);
+        console.log(profiles);
         res.json(profiles);
     } catch (err) {
         console.error(err.message);

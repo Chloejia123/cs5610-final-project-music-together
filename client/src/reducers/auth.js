@@ -9,6 +9,7 @@ import {
     UPDATE_USER,
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
+    FIND_USERS_ARTISTS,
 } from '../actions/types';
 
 
@@ -21,6 +22,10 @@ const initialState = {
     profile: {
         user: {},
     },
+    result: [
+        { _id: '5d2e97759c39d064079e4cc2',
+            user: "David" }
+    ],
 };
 
 export default function(state = initialState, action) {
@@ -52,6 +57,11 @@ export default function(state = initialState, action) {
                 reload: true,
                 loading: false,
                 isAuthenticated: isAuthenticated,
+            }
+        case FIND_USERS_ARTISTS:
+            return {
+                ...state,
+                result: payload
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:

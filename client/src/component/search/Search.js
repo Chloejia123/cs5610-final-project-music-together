@@ -19,7 +19,11 @@ export default class Search extends React.Component {
 
     switchSearchCategory = (searchTerm) => {
         this.setState({
-            searchBy: searchTerm
+            searchBy: searchTerm,
+            result: {
+                items: []
+            },
+            keyword: '',
         }) 
     }
 
@@ -36,8 +40,10 @@ export default class Search extends React.Component {
     extractResult = (result) => {
         switch(this.state.searchBy) {
             case 'all': 
+                console.log(result)
                 return result.tracks
             case 'artists': 
+                console.log(result)
                 return result.artists
             case 'playlists':
                 return result.playlists
@@ -84,6 +90,7 @@ export default class Search extends React.Component {
             switch(this.state.searchBy) {
                 case 'all':
                     console.log('result')
+                    console.log(result)
                     console.log(result.tracks)
                     console.log(this.state.result)
                     console.log('result')

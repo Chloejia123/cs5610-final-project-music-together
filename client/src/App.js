@@ -5,6 +5,7 @@ import Landing from './component/layout/Landing';
 import Register from './component/auth/Register';
 import Login from './component/auth/Login';
 import Search from './component/search/Search';
+import SearchDetail from './component/search/SearchDetail';
 import {Provider} from 'react-redux';
 import store from './store';
 import './App.css';
@@ -37,6 +38,7 @@ const App = () => {
                     <Alert/>
                     <Switch>
                         <Route exact path='/search' component={Search} />
+                        <Route exact path='/search/details/:id' component={SearchDetail} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' component={Profile}/>

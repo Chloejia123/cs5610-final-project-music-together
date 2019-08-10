@@ -25,20 +25,23 @@ class Profile extends React.Component {
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
         </div>
-
-    
-    // 5d2dabd1cb4fd1e003b47b9a --> david's id
     
 
-    renderMusic = ({favouriteartists, favouritesongs, _id }, isAuthenticated, updateProfile) => 
-        <div>
-            <h2 className="large text-primary">Music Profile</h2>
-            <ProfileField _id={_id} field='Favorite Artists' 
-                currentValue={favouriteartists} updateFunc={updateProfile} 
-                isAuthenticated={isAuthenticated}/>
-            <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
-                updateFunc={updateProfile} isAuthenticated={isAuthenticated}/>
-        </div>
+    renderMusic = ({favouriteartists, favouritesongs, _id }, isAuthenticated, updateProfile) => {
+        console.log(favouriteartists)
+        return (
+            <div>
+                <h2 className="large text-primary">Music Profile</h2>
+
+                <ProfileField _id={_id} field='Favorite Artists' 
+                    currentValue={favouriteartists} updateFunc={updateProfile} 
+                    isAuthenticated={isAuthenticated}/>
+                {/* <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
+                    updateFunc={updateProfile} isAuthenticated={isAuthenticated}/> */}
+            </div>
+        )
+    }
+
     
 
     renderSocial = ({bio, followers, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
@@ -56,17 +59,8 @@ class Profile extends React.Component {
                 isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='Instagram' currentValue={instagram} updateFunc={updateProfile} 
                 isAuthenticated={isAuthenticated} />               
-            {/* <div>
-                Social Links
-                <br />
-                {social.map(platform => console.log(platform))}
-            </div> */}
         </div>
-    /*
-     to do 
-     2 social & followers - not an array, how to display
-     3 log out -- needs to actually log out and re-route
-     */
+
     renderProfile = (user, profile, isAuthenticated, updateUser, updateProfile) => {
         const section = this.state.show;
         switch(section) {

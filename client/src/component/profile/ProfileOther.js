@@ -48,17 +48,15 @@ class ProfileOther extends React.Component {
                 isAuthenticated={false}/>
         </div>
     
-    // 5d2dabd1cb4fd1e003b47b9a --> david's id
-    
 
     renderMusic = ({favouriteartists, favouritesongs, _id}) => 
     <div>
         <h2 className="large text-primary">Music Profile</h2>
-        <ProfileField _id={_id} field='Favorite Artists' 
+        {/* <ProfileField _id={_id} field='Favorite Artists' 
             currentValue={favouriteartists} 
             isAuthenticated={false}/>
         <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
-            isAuthenticated={false}/>
+            isAuthenticated={false}/> */}
     </div>
     
 
