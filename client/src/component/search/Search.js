@@ -115,7 +115,6 @@ export default class Search extends React.Component {
     render() {
         return (
             <div>
-                <h1>Search by {this.state.searchBy}</h1>
                 <button                     
                     onClick={() => this.switchSearchCategory('all')}
                     className="btn btn-dark">
@@ -131,6 +130,7 @@ export default class Search extends React.Component {
                     className="btn btn-dark">
                     Playlists
                 </button>
+                <h1 className="large text-primary">Search by {this.state.searchBy}</h1>
                 <form className='form'>
                     <div className="form-group">
                         <input 
