@@ -13,6 +13,8 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Profile from './component/profile/Profile';
 import ProfileOther from './component/profile/ProfileOther';
+import Posts from './component/posts/posts'
+import PrivateRoute from './component/rounting/PrivateRoute'
 
 
 if (localStorage.token) {
@@ -39,6 +41,7 @@ const App = () => {
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' component={Profile}/>
                         <Route exact path='/profile/:userId' component={ProfileOther} />
+                        <PrivateRoute exact path='/posts' component={Posts}/>
                     </Switch>
                 </section>
             </Fragment>
