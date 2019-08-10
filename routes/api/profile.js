@@ -10,6 +10,13 @@ const {
     validationResult
 } = require('express-validator');
 
+
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 // @route   GET api/profile/me
 // @desc    Get current users profile
 // @access  Private 
@@ -36,10 +43,12 @@ router.get('/me', auth, async(req, res) => {
 // @route   POST api/profile
 // @desc    create/update a user profile
 // @access  Private 
-router.post('/', [auth, [
-        check('favouritesongs', 'Please tell us at least one of your favourite songs').exists(),
-        check('favouriteartists', 'Please tell us at least one of your favourite artists').exists(),
-    ]],
+router.post('/', [auth, 
+    // [
+    //     check('favouritesongs', 'Please tell us at least one of your favourite songs').exists(),
+    //     check('favouriteartists', 'Please tell us at least one of your favourite artists').exists(),
+    // ]
+],
     async(req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -47,11 +56,13 @@ router.post('/', [auth, [
                 errors: errors.array()
             })
         }
+        console.log(req.body)
+        console.log(req.user)
         const {
             bio,
             location,
-            favouritesongs,
-            favouriteartists,
+            // favouritesongs,
+            // favouriteartists,
             followers,
             soundtrackusername,
             youtube,
@@ -59,9 +70,13 @@ router.post('/', [auth, [
             facebook,
             instagram
         } = req.body;
+        const favouritesongs = req.body['favorite songs']
+        const favouriteartists = req.body['favorite artists']
 
         const profileFields = {};
+
         profileFields.user = req.user.id;
+        
         if (bio) {
             profileFields.bio = bio;
         }
@@ -70,9 +85,11 @@ router.post('/', [auth, [
         }
         if (favouritesongs) {
             profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
+            // profileFields.favouritesongs = favouritesongs
         }
         if (favouriteartists) {
             profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
+            // profileFields.favouriteartists = favouriteartists
         }
         if (followers) {
             profileFields.followers = followers;
@@ -116,7 +133,9 @@ router.post('/', [auth, [
             profile = new Profile(profileFields);
             await profile.save();
             res.json(profile)
+            // deep copy
         } catch (error) {
+            console.log('here')
             console.error(error.message)
             res.status(500).send('Server Error')
         }

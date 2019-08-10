@@ -11,6 +11,12 @@ const {
 
 const User = require('../../models/User');
 
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // @route   POST api/users
 // @desc    Register a new user
 // @access  Public 
@@ -19,7 +25,8 @@ router.post('/', [
     check('email', 'Please use a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({
         min: 6
-    })
+    }),
+    check('roleType', 'Please select a role type').exists()
 ], async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -29,6 +36,7 @@ router.post('/', [
     }
 
     const {
+        roleType,
         name,
         email,
         password
@@ -56,6 +64,7 @@ router.post('/', [
         });
 
         user = new User({
+            roleType,
             name,
             email,
             avatar,
@@ -81,6 +90,49 @@ router.post('/', [
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
+    }
+
+});
+
+// @route   POST api/users/:userId
+// @desc    Update an existing new user
+// @access  Public 
+router.post('/:userId', [
+], async(req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        });
+    }
+
+    const id = req.params['userId']
+    try {
+        let user = await User.findOne({
+            _id: id
+        });
+
+        if (user) {
+
+            user = await User.findOneAndUpdate({
+                _id: id
+            }, {
+                $set: req.body
+            }, {
+                new: true
+            })
+
+            return res.json(user)
+        }
+        // user = new User();
+        // await user.save();
+        // res.json(user)
+
+    } catch (error) {
+        console.log('here')
+        console.error(error.message)
+        res.status(500).send('Server Error')
     }
 
 });

@@ -2,9 +2,9 @@ import React, {Fragment, useState} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { login, loadUser } from '../../actions/auth';
 
-const Login = ({login, isAuthenticated}) => {
+const Login = ({login, isAuthenticated, user}) => {
     const [formData, setFormData] = useState({
          email: '',
          password: ''
@@ -12,8 +12,8 @@ const Login = ({login, isAuthenticated}) => {
 
     const { email, password } = formData;
 
-    const onChange = e =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+        
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -22,7 +22,7 @@ const Login = ({login, isAuthenticated}) => {
 
     //Redirect us to profile if login
     if(isAuthenticated) {
-        return <Redirect to='/dashboard'/>
+        return <Redirect to='/profile'/>
     }
 
     return (

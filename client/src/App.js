@@ -13,6 +13,8 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Posts from './component/posts/posts'
 import PrivateRoute from './component/rounting/PrivateRoute'
+import Profile from './component/profile/Profile';
+import ProfileOther from './component/profile/ProfileOther';
 
 
 if (localStorage.token) {
@@ -20,6 +22,7 @@ if (localStorage.token) {
 }
 
 const App = () => {
+
     useEffect(() => {
         store.dispatch(loadUser());
     }, []);
@@ -37,6 +40,8 @@ const App = () => {
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                         <PrivateRoute exact path='/posts' component={Posts}/>
+                        <Route exact path='/profile' component={Profile}/>
+                        <Route exact path='/profile/:userId' component={ProfileOther} />
                     </Switch>
                 </section>
             </Fragment>

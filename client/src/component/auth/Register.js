@@ -4,6 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+const GENERAL_USER = 'GENERAL_USER';
+const ADMIN = 'ADMIN';
 
 
 const Register = ({setAlert, register, isAuthenticated}) => {
@@ -13,10 +15,11 @@ const Register = ({setAlert, register, isAuthenticated}) => {
         name: '',
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        roleType: ''
     });
 
-    const {name, email, password, password2} = formData;
+    const {name, email, password, password2, roleType} = formData;
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
@@ -25,13 +28,13 @@ const Register = ({setAlert, register, isAuthenticated}) => {
         if(password !== password2) {
             setAlert('The password does not match, please retry.', 'danger');
         } else {
-            register({name, email, password});
+            register({name, email, password, roleType});
         }
     }
 
     //Redirect us to profile if login
     if(isAuthenticated) {
-        return <Redirect to='/dashboard'/>
+        return <Redirect to='/profile'/>
     }
 
     return (
@@ -78,6 +81,13 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                         onChange={e => onChange(e)}
                     />
                 </div>
+                <select type='roleType' name='roleType' value={roleType} onChange={e => onChange(e)} className='form-group' required>
+                    <option value="none" selected hidden> 
+                        Select an role type 
+                    </option> 
+                    <option value={GENERAL_USER}>General User</option>
+                    <option value={ADMIN}>Admin</option>
+                </select>
                 <input type='submit' className='btn btn-primary' value='Register' />
             </form>
             <p className='my-1'>
