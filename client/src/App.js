@@ -11,6 +11,8 @@ import './App.css';
 import Alert from './component/layout/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Posts from './component/posts/posts'
+import PrivateRoute from './component/rounting/PrivateRoute'
 
 
 if (localStorage.token) {
@@ -34,6 +36,7 @@ const App = () => {
                         <Route exact path='/search' component={Search} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
+                        <PrivateRoute exact path='/posts' component={Posts}/>
                     </Switch>
                 </section>
             </Fragment>
