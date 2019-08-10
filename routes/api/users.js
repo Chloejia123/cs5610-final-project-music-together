@@ -35,6 +35,7 @@ router.post('/', [
     }
 
     const {
+        roleType,
         name,
         email,
         password
@@ -62,6 +63,7 @@ router.post('/', [
         });
 
         user = new User({
+            roleType,
             name,
             email,
             avatar,
