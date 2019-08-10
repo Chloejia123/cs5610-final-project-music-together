@@ -40,6 +40,7 @@ export default class ProfileField extends React.Component {
         const { _id, field, currentValue, updateFunc, isAuthenticated } = this.props
 
         return (
+            !isAuthenticated && currentValue === undefined ? <div></div> :
             <div className="nugget">
                 <h2 className="subtitle text-primary">{field}</h2>
                 {isAuthenticated && this.state.edit ? 

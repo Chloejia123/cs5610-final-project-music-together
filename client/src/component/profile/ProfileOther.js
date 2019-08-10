@@ -62,18 +62,21 @@ class ProfileOther extends React.Component {
     </div>
     
 
-    renderSocial = ({bio, followers, location, social, _id}) => 
+    renderSocial = ({bio, followers, location, facebook, youtube, twitter, instagram, _id}) => 
         <div>
             <h3 className="large text-primary">Social Profile</h3>
             <ProfileField _id={_id} field='Bio' currentValue={bio} 
                 isAuthenticated={false} />
             <ProfileField _id={_id} field='Location' currentValue={location} 
                 isAuthenticated={false} />
-            {/* <div>
-                Social Links
-                <br />
-                {social.map(platform => console.log(platform))}
-            </div> */}
+            <ProfileField _id={_id} field='Facebook' currentValue={facebook} 
+                isAuthenticated={false} />
+            <ProfileField _id={_id} field='YouTube' currentValue={youtube}  
+                isAuthenticated={false} />
+            <ProfileField _id={_id} field='Twitter' currentValue={twitter}  
+                isAuthenticated={false} />
+            <ProfileField _id={_id} field='Instagram' currentValue={instagram} 
+                isAuthenticated={false} /> 
         </div>
 
     render() {
