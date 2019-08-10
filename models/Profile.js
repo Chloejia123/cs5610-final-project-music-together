@@ -28,19 +28,17 @@ const ProfileSchema = new mongoose.Schema({
     soundtrackusername: {
         type: String
     },
-    social: {
-        youtube: {
-            type: String
-        },
-        twitter: {
-            type: String
-        },
-        facebook: {
-            type: String
-        },
-        instagram: {
-            type: String
-        }
+    youtube: {
+        type: String
+    },
+    twitter: {
+        type: String
+    },
+    facebook: {
+        type: String
+    },
+    instagram: {
+        type: String
     },
     date: {
         type: Date,

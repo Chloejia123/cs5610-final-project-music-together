@@ -38,7 +38,7 @@ export default class ProfileField extends React.Component {
 
     render() {
         const { _id, field, currentValue, updateFunc, isAuthenticated } = this.props
-        
+
         return (
             <div className="nugget">
                 <h2 className="subtitle text-primary">{field}</h2>
@@ -54,7 +54,8 @@ export default class ProfileField extends React.Component {
                         className="btn btn-light"
                         onClick={() => this.state.edit ? 
                         this.save(updateFunc, _id, field, this.state.value) : 
-                        this.edit()}>Edit
+                        this.edit()}>
+                            {currentValue ===  undefined ? "Add" : "Edit"}
                     </button> : 
                     <div></div>
                 }

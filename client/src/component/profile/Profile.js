@@ -41,13 +41,21 @@ class Profile extends React.Component {
         </div>
     
 
-    renderSocial = ({bio, followers, location, social, _id}, isAuthenticated, updateProfile) => 
+    renderSocial = ({bio, followers, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
         <div>
             <h3 className="large text-primary">Social Profile</h3>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile}
-            isAuthenticated={isAuthenticated} />
+                isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} 
-            isAuthenticated={isAuthenticated} />
+                isAuthenticated={isAuthenticated} />
+            <ProfileField _id={_id} field='Facebook' currentValue={facebook} updateFunc={updateProfile} 
+                isAuthenticated={isAuthenticated} />
+            <ProfileField _id={_id} field='YouTube' currentValue={youtube} updateFunc={updateProfile} 
+                isAuthenticated={isAuthenticated} />
+            <ProfileField _id={_id} field='Twitter' currentValue={twitter} updateFunc={updateProfile} 
+                isAuthenticated={isAuthenticated} />
+            <ProfileField _id={_id} field='Instagram' currentValue={instagram} updateFunc={updateProfile} 
+                isAuthenticated={isAuthenticated} />               
             {/* <div>
                 Social Links
                 <br />
