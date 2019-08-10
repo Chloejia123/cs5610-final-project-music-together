@@ -12,10 +12,10 @@ const {
 const User = require('../../models/User');
 
 router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+    res.header("Access-Control-Allow-Origin", "*"); 
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
 
 // @route   POST api/users
 // @desc    Register a new user
@@ -25,7 +25,8 @@ router.post('/', [
     check('email', 'Please use a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({
         min: 6
-    })
+    }),
+    check('roleType', 'Please select a role type').exists()
 ], async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
