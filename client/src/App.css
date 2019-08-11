@@ -152,6 +152,7 @@ img {
     margin-right: 0.5rem;
     transition: opacity 0.2s ease-in;
     outline: none;
+    /* border-radius: 10px; */
 }
 
 .badge {
@@ -240,6 +241,10 @@ img {
 
 .round-img {
     border-radius: 50%;
+}
+
+.round-edge {
+    border-radius: 10px;
 }
 
 .line {
@@ -480,6 +485,12 @@ button {
 .profile-github > div:last-child {
     flex: 3;
     flex-basis: 20%;
+}
+
+/* Artist Page */
+.artistImage {
+    width: 100px;
+    /* border-radius: 10px; */
 }
 
 /* Posts Page */

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ class Profile extends React.Component {
         })
     }
 
-    renderBasic = ({name, email, password, roleType, _id}, isAuthenticated, updateUser) => 
+    renderBasic = ({name, email, roleType, _id}, isAuthenticated, updateUser) => 
         <div>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
@@ -36,12 +36,17 @@ class Profile extends React.Component {
                 {
                     favouriteartists.map(
                         artist => 
-                            <Link to={`search/details/${artist}`}>
-                                {artist}
+                            <div className="m artist">
+                                <button className="btn btn-white round-edge">
+                                    <Link to={`search/details/artists/${artist}`}>
+                                        {artist}
+                                    </Link>
+                                </button>
                                 <br />
-                            </Link>
+                            </div>
                     )
                 }
+                <div className="text-dark">To add favorite artists, go <Link to="search">here</Link></div>
                 {/* <ProfileField _id={_id} field='Favorite Artists' 
                     currentValue={favouriteartists} updateFunc={updateProfile} 
                     isAuthenticated={isAuthenticated}/> */}
@@ -53,7 +58,7 @@ class Profile extends React.Component {
 
     
 
-    renderSocial = ({bio, followers, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
+    renderSocial = ({bio, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
         <div>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile}
                 isAuthenticated={isAuthenticated} />
@@ -83,7 +88,7 @@ class Profile extends React.Component {
 
     render() {
         const { loadUser, loadUserProfile, updateUser, updateProfile } = this.props;
-        const { isAuthenticated, user, loading, profile } = this.props.auth;
+        const { isAuthenticated, user, profile } = this.props.auth;
 
 
         return (

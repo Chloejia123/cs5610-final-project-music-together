@@ -3,12 +3,16 @@ import SearchItem from './SearchItem'
 import SearchKeyword from './SearchKeyword'
 import SearchArtist from './SearchArtist'
 import SearchPlaylist from './SearchPlaylist'
+import { Link } from 'react-router-dom';
+import { findSongs, findArtists } from '../../actions/search';
+import { connect } from 'react-redux';
 
-export default class Search extends React.Component {
+
+class Search extends React.Component {
     constructor() {
         super()
         this.state = {
-            searchBy: 'all',
+            searchBy: 'songs',
             displayResults: false,
             keyword: '',
             result: {
@@ -31,22 +35,22 @@ export default class Search extends React.Component {
         this.setState({
             displayResults: true,
         })
-        const category = this.state.searchBy === 'all' ? 'results' : this.state.searchBy
-        fetch(`http://localhost:5000/api/search/${category}/${this.state.keyword}`)
-            .then(response => response.json())
-            .then(this.triggerResults)
+        this.state.searchBy === 'songs' ? 
+            this.props.findSongs(this.state.keyword) : 
+            this.props.findArtists(this.state.keyword);
     }
 
     extractResult = (result) => {
         switch(this.state.searchBy) {
-            case 'all': 
+            case 'songs': 
+                console.log('songs')
                 console.log(result)
                 return result.tracks
             case 'artists': 
                 console.log(result)
                 return result.artists
-            case 'playlists':
-                return result.playlists
+            // case 'playlists':
+            //     return result.playlists
             default:
                 return {
                     item: [],
@@ -62,14 +66,12 @@ export default class Search extends React.Component {
     }
 
     doSearch = () => {
-        // alert('do search')
         this.setState({
             displayResults: true,
         })
     }
  
     clearSearch = () => {
-        // alert('clear search')
         this.setState({
             displayResults: false,
         })
@@ -79,64 +81,27 @@ export default class Search extends React.Component {
             keyword: keyword
         })
 
-    renderResults = (result) => {
-        console.log('triggered')
-        // alert(result)
-        console.log(this.state.searchBy)
-        // this.setState({
-        //     result: result
-        // })
-        if (this.state.displayResults) {
-            switch(this.state.searchBy) {
-                case 'all':
-                    console.log('result')
-                    console.log(result)
-                    console.log(result.tracks)
-                    console.log(this.state.result)
-                    console.log('result')
-                    // return <SearchKeyword result={this.state.result}/>
-                    return <div>{result.tracks.total}</div>
-                        // blah
-                        // {result.tracks}
-                        {/* Found {result.tracks.total} results, display top {result.tracks.total === 0 ? 0 : this.state.result.tracks.items.ength}
-                        <ul className="list-group">
-                        {
-                            result.tracks.items.map(
-                                (song, index) => <li key={index} className="list-group-item">
-                                    {song.name}
-                                </li>
-                            )
-                        }
-                        </ul> */}
-                    // </div>
-                case 'artists': 
-                    return <SearchArtist result={this.state.result}/>
-                case 'playlists':
-                    return <SearchPlaylist result={this.state.result}/>
-                default:
-                    return <div>Please select a category to search by.</div>
-            }
-        }
-    }
 
     render() {
+        const { result } = this.props.search
+
         return (
             <div>
                 <button                     
-                    onClick={() => this.switchSearchCategory('all')}
+                    onClick={() => this.switchSearchCategory('songs')}
                     className="btn btn-dark">
-                    All
+                    Songs
                 </button>
                 <button 
                     onClick={() => this.switchSearchCategory('artists')}
                     className="btn btn-dark">
                     Artists
                 </button>
-                <button                     
+                {/* <button                     
                     onClick={() => this.switchSearchCategory('playlists')}
                     className="btn btn-dark">
                     Playlists
-                </button>
+                </button> */}
                 <h1 className="large text-primary">Search by {this.state.searchBy}</h1>
                 <form className='form'>
                     <div className="form-group">
@@ -153,20 +118,31 @@ export default class Search extends React.Component {
                         className="btn btn-primary">
                         Search
                     </button>
-                    {/* <span
-                        onClick={() => this.clearSearch}
-                        className="btn btn-primary">
-                        Clear
-                    </span> */}
+
                 </div>
                 <ul className="list-group">
                 {
-                    this.state.result.items.map(
-                        (song, index) => <SearchItem song={song} key={index} />
-                        )
+                    result.map(
+                        (song, index) => 
+                            <li className="m list-group-item" key={index}>
+                                <button className="btn btn-light" key={index}>
+                                    {song.name}
+                                    <br />
+                                    <Link to={`search/details/${this.state.searchBy}/${song.name}`}>
+                                        Click to see details
+                                    </Link>
+                                </button>
+                            </li>
+                    )
                 }
                 </ul>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    search: state.search
+})
+
+export default connect(mapStateToProps, { findSongs, findArtists })(Search);

@@ -17,3 +17,7 @@ export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const DELETE_POST = 'DELETE_POST';
 export const FIND_USERS_ARTISTS = 'FIND_USERS_ARTISTS';
 export const FIND_ALL_PROFILES = 'FIND_ALL_PROFILES';
+export const ARTISTS = 'ARTISTS';
+export const SONGS = 'SONGS';
+export const TOP_ONE_ARTIST = 'TOP_ONE_ARTIST';
+export const TOP_ONE_SONG = 'TOP_ONE_SONG';

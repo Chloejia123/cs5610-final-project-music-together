@@ -127,7 +127,7 @@ export const addFavoriteArtist = (content, id) => async dispatch => {
     // console.log(artistId)
 
     try {
-        const res = await axios.post(`/${id}`, body, config);
+        const res = await axios.post(`/api/profile/artist/${id}`, body, config);
         // console.log(res)
 
         dispatch({

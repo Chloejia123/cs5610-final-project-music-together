@@ -39,7 +39,8 @@ const App = () => {
                     <Alert/>
                     <Switch>
                         <Route exact path='/search' component={Search} />
-                        <Route exact path='/search/details/:id' component={SearchDetail} />
+                        <Route exact path='/search/details/artists/:id' component={SearchDetail} />
+                        <Route exact path='/search/details/songs/:id' component={SearchDetail} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' 

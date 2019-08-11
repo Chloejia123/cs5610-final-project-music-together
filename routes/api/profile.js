@@ -153,26 +153,12 @@ router.post('/artist/:artistId', [auth,
                 errors: errors.array()
             })
         }
-        console.log(req.body)
-        console.log(req.user)
-        // const {
-        //     bio,
-        //     location,
-        //     // favouritesongs,
-        //     // favouriteartists,
-        //     followers,
-        //     soundtrackusername,
-        //     youtube,
-        //     twitter,
-        //     facebook,
-        //     instagram
-        // } = req.body;
-        // const favouritesongs = req.body['favorite songs']
-        // const favouriteartists = req.body['favorite artists']
+        // console.log(req.body)
+        // console.log(req.user)
+
         const artist = req.body['artist']
         const artistId = req.params.artistId
 
-        // const profileFields = {};
 
         try {
             let profile = await Profile.findOne({
@@ -182,7 +168,7 @@ router.post('/artist/:artistId', [auth,
                 profile = await Profile.findOneAndUpdate({
                     user: req.body.id
                 }, {
-                    $push: 
+                    $addToSet: 
                     {
                         favouriteartistsId: artistId,
                         favouriteartists: artist
@@ -203,7 +189,6 @@ router.post('/artist/:artistId', [auth,
         }
     },
 );
-
 
 // @route   GET api/profile
 // @desc    Get all profiles
@@ -226,7 +211,7 @@ router.get('/artist/:artistId', async(req, res) => {
         const profiles = await Profile.find({
             favouriteartistsId: req.params.artistId
         },{user: 1}).populate('user', ['name', 'avatar']);
-        console.log(profiles);
+        // console.log(profiles);
         res.json(profiles);
     } catch (err) {
         console.error(err.message);
