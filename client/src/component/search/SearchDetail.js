@@ -1,14 +1,16 @@
 import React from 'react';
+import { setAlert } from '../../actions/alert';
 import { addFavoriteArtist, findUserWhoLikedArtist } from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
  
+// can probably change to stateless component
 class SearchDetail extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            fans: []
-        }
+        // this.state = {
+        //     fans: []
+        // }
     }
 
     likeArtist = (id, name, addFavoriteArtist) => {
@@ -20,20 +22,20 @@ class SearchDetail extends React.Component {
 
     findLikedUsers = (findUsers, id) => {
         findUsers(id)
-        this.setState({
-            fans: this.props.auth.result
-        })
+        // this.setState({
+        //     fans: this.props.auth.result
+        // })
     }
 
-    renderLikedUsers = (result) => 
-    {
-        result.map(
-        user => <Link 
-                    to={`/profile/${user._id}`} 
-                    key={user._id}>
-                    {user.name}
-                </Link>)
-    }
+    // renderLikedUsers = (result) => 
+    // {
+    //     result.map(
+    //     user => <Link 
+    //                 to={`/profile/${user._id}`} 
+    //                 key={user._id}>
+    //                 {user.name}
+    //             </Link>)
+    // }
 
 
     render() {
@@ -41,7 +43,8 @@ class SearchDetail extends React.Component {
         const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = this.props.location.details
 
         const { addFavoriteArtist, findUserWhoLikedArtist } = this.props
-        const { result } = this.props.auth        
+        const { result } = this.props.auth 
+        console.log(result)       
 
         return (
             <div>

@@ -94,12 +94,10 @@ export const loadAllUserProfiles = (isAuthenticated = false) => async dispatch =
 }
 
 export const findUserWhoLikedArtist = (artistId) => async dispatch => {
-    if (localStorage.token) {
-        setAuthToken(localStorage.token);
-    }
 
     try {
         const res = await axios.get(`/api/profile/artist/${artistId}`)
+        console.log(res)
         
         dispatch({
             type: FIND_USERS_ARTISTS,
@@ -113,7 +111,6 @@ export const findUserWhoLikedArtist = (artistId) => async dispatch => {
 }
 
 export const addFavoriteArtist = (content, id) => async dispatch => {
-    console.log('111')
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
@@ -130,7 +127,7 @@ export const addFavoriteArtist = (content, id) => async dispatch => {
     // console.log(artistId)
 
     try {
-        const res = await axios.post(`/api/profile/artist/${id}`, body, config);
+        const res = await axios.post(`/${id}`, body, config);
         // console.log(res)
 
         dispatch({
@@ -139,7 +136,7 @@ export const addFavoriteArtist = (content, id) => async dispatch => {
         })
 
     } catch (err) {
-        console.log(err)
+        dispatch(setAlert('Please register or log in to like this artist', 'danger'))
     }
 }
 

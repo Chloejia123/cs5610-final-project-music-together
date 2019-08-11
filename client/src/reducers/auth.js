@@ -23,12 +23,11 @@ const initialState = {
     profile: {
         user: {},
     },
-    result: [
-        {}
-    ],
+    result: [{
+        user: {}
+    }],
     profiles: [{
-        user: {
-        }
+        user: {}
     }]
 };
 
