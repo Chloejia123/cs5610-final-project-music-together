@@ -48,7 +48,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </ul>
     );
 
-    return (
+    return isAuthenticated ? (
+        <nav className='navbar bg-pink'>
+            <h1>
+                <Link to="/posts">
+                    <span className='lead'>Music together </span>  </Link>
+            </h1>
+            {!loading && (
+                <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+            )}
+        </nav>
+    ) : (
         <nav className='navbar bg-pink'>
             <h1>
                 <Link to="/">

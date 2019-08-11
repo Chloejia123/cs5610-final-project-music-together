@@ -11,6 +11,9 @@ import './App.css';
 import Alert from './component/layout/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Posts from './component/posts/posts'
+import Post from './component/post/Post'
+import PrivateRoute from './component/rounting/PrivateRoute'
 import Profile from './component/profile/Profile';
 import ProfileOther from './component/profile/ProfileOther';
 
@@ -37,6 +40,8 @@ const App = () => {
                         <Route exact path='/search' component={Search} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
+                        <PrivateRoute exact path='/posts' component={Posts}/>
+                        <PrivateRoute exact path='/posts/:id' component={Post}/>
                         <Route exact path='/profile' component={Profile}/>
                         <Route exact path='/profile/:userId' component={ProfileOther} />
                     </Switch>
