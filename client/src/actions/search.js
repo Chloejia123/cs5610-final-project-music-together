@@ -6,7 +6,6 @@ import {
 export const findArtists = (keyword) => async dispatch => {
     try {
         const res = await axios.get(`/api/search/artists/${keyword}`)
-        console.log(res)
 
         dispatch({
             type: ARTISTS,
@@ -21,7 +20,6 @@ export const findArtists = (keyword) => async dispatch => {
 export const findSongs = (keyword) => async dispatch => {
     try {
         const res = await axios.get(`/api/search/results/${keyword}`)
-        console.log(res)
 
         dispatch({
             type: SONGS,
@@ -36,7 +34,6 @@ export const findSongs = (keyword) => async dispatch => {
 export const findTopOneArtist = (keyword) => async dispatch => {
     try {
         const res = await axios.get(`/api/search/artists/${keyword}`)
-        console.log(res)
 
         dispatch({
             type: TOP_ONE_ARTIST,
@@ -50,7 +47,6 @@ export const findTopOneArtist = (keyword) => async dispatch => {
 export const findTopSong = (keyword) => async dispatch => {
     try {
         const res = await axios.get(`/api/search/results/${keyword}`)
-        console.log(res)
 
         dispatch({
             type: TOP_ONE_SONG,

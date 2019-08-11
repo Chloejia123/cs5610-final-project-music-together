@@ -23,7 +23,7 @@ class SearchDetail extends React.Component {
 
         this.state.searchTerm === 'artists' ? 
             this.props.findTopOneArtist(this.state.artistName) :
-            this.props.findTopSong(this.state.artistName)
+            this.props.findTopSong(this.state.artistName);
     }
 
     componentDidUpdate = (prevProps) => {
@@ -39,14 +39,6 @@ class SearchDetail extends React.Component {
                 this.props.findTopSong(artistName)
         }
     }
-
-    // triggerResult = (result) => {
-    //     console.log('triggered result')
-    //     const field = this.state.searchTerm === 'results' ? 'tracks' : this.state.searchTerm
-    //     this.setState({
-    //         details: result[field].items[0]
-    //     })
-    // }
 
     likeArtist = (id, name, addFavoriteArtist, updateLikedUsers) => {
         let snippet = {}
