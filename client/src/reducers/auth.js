@@ -10,6 +10,7 @@ import {
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
     FIND_USERS_ARTISTS,
+    FIND_ALL_PROFILES,
 } from '../actions/types';
 
 
@@ -23,15 +24,24 @@ const initialState = {
         user: {},
     },
     result: [
-        { _id: '5d2e97759c39d064079e4cc2',
-            user: "David" }
+        {}
     ],
+    profiles: [{
+        user: {
+        }
+    }]
 };
 
 export default function(state = initialState, action) {
     const { type, payload, isAuthenticated } = action;
 
     switch (type) {
+        case FIND_ALL_PROFILES:
+            return {
+                ...state,
+                profiles: payload,
+                isAuthenticated: isAuthenticated,
+            }
         case USER_LOADED:
         case UPDATE_USER:
             return {

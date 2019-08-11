@@ -16,3 +16,4 @@ export const POST_ERROR = 'POST_ERROR';
 export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const DELETE_POST = 'DELETE_POST';
 export const FIND_USERS_ARTISTS = 'FIND_USERS_ARTISTS';
+export const FIND_ALL_PROFILES = 'FIND_ALL_PROFILES';

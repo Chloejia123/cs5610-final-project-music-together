@@ -14,6 +14,7 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Profile from './component/profile/Profile';
 import ProfileOther from './component/profile/ProfileOther';
+import ProfileAll from './component/profile/ProfileAll';
 import Posts from './component/posts/posts'
 import PrivateRoute from './component/rounting/PrivateRoute'
 
@@ -43,6 +44,7 @@ const App = () => {
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/profile' component={Profile}/>
                         <Route exact path='/profile/:userId' component={ProfileOther} />
+                        <Route exact path='/profiles' component={ProfileAll} />
                         <PrivateRoute exact path='/posts' component={Posts}/>
                     </Switch>
                 </section>

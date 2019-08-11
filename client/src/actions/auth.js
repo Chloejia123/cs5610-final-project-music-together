@@ -12,6 +12,7 @@ import {
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
     FIND_USERS_ARTISTS,
+    FIND_ALL_PROFILES,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -74,6 +75,21 @@ export const loadOtherUser = (userId, isAuthenticated = false) => async dispatch
         dispatch({
             type: AUTH_ERROR
         })
+    }
+}
+
+export const loadAllUserProfiles = (isAuthenticated = false) => async dispatch => {
+    try {
+        const res = await axios.get('/api/profile');
+
+        dispatch({
+            type: FIND_ALL_PROFILES,
+            payload: res.data,
+            isAuthenticated: isAuthenticated,
+        })
+
+    } catch(err) {
+        console.log(err)
     }
 }
 
