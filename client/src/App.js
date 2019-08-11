@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import NavBar from './component/layout/NavBar';
 import Landing from './component/layout/Landing';
 import Register from './component/auth/Register';
@@ -42,7 +42,10 @@ const App = () => {
                         <Route exact path='/search/details/:id' component={SearchDetail} />
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/login' component={Login}/>
-                        <Route exact path='/profile' component={Profile}/>
+                        <Route exact path='/profile' 
+                            render={(props) => store.getState().auth.isAuthenticated
+                                        ? <Profile />
+                                        : <Redirect to='/login' />} />
                         <Route exact path='/profile/:userId' component={ProfileOther} />
                         <Route exact path='/profiles' component={ProfileAll} />
                         <PrivateRoute exact path='/posts' component={Posts}/>
