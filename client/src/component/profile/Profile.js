@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loadUser, loadUserProfile, updateUser, updateProfile } from '../../actions/auth';
 import ProfileField from './ProfileField';
 
@@ -21,7 +22,6 @@ class Profile extends React.Component {
 
     renderBasic = ({name, email, password, roleType, _id}, isAuthenticated, updateUser) => 
         <div>
-            <h1 className="large text-primary">Profile</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='roleType' currentValue={roleType} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
@@ -29,14 +29,22 @@ class Profile extends React.Component {
     
 
     renderMusic = ({favouriteartists, favouritesongs, _id }, isAuthenticated, updateProfile) => {
-        console.log(favouriteartists)
+
         return (
             <div>
-                <h2 className="large text-primary">Music Profile</h2>
-
-                <ProfileField _id={_id} field='Favorite Artists' 
+                <h2 className="subtitle text-primary">Favorite Artists</h2>
+                {
+                    favouriteartists.map(
+                        artist => 
+                            <Link to={`search/details/${artist}`}>
+                                {artist}
+                                <br />
+                            </Link>
+                    )
+                }
+                {/* <ProfileField _id={_id} field='Favorite Artists' 
                     currentValue={favouriteartists} updateFunc={updateProfile} 
-                    isAuthenticated={isAuthenticated}/>
+                    isAuthenticated={isAuthenticated}/> */}
                 {/* <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
                     updateFunc={updateProfile} isAuthenticated={isAuthenticated}/> */}
             </div>
@@ -47,7 +55,6 @@ class Profile extends React.Component {
 
     renderSocial = ({bio, followers, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
         <div>
-            <h3 className="large text-primary">Social Profile</h3>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile}
                 isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} 

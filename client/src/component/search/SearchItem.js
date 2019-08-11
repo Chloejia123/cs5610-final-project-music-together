@@ -11,7 +11,6 @@ export default class SearchItem extends React.Component {
 
     switchState = () => {
         const { show } = this.state
-        console.log(show)
         this.setState({
             show: !show
         })
@@ -26,10 +25,7 @@ export default class SearchItem extends React.Component {
     render() {
         const { song } = this.props
 
-        const linkTo = { 
-            pathname: `search/details/${song.id}`, 
-            details: song 
-          };
+
         return (
             <li className="m list-group-item">
                 <button 
@@ -44,7 +40,7 @@ export default class SearchItem extends React.Component {
                                 <div>Type: {song.type}</div>
                                 <div>Popularity: {song.popularity ? song.popularity : '-'}</div>
                                 <Link 
-                                    to={linkTo}>
+                                    to={`search/details/${song.name}`}>
                                     See details
                                 </Link>
                             </div> 

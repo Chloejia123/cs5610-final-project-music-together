@@ -22,6 +22,7 @@ const initialState = {
     },
     profile: {
         user: {},
+        favouriteartists: [],
     },
     result: [{
         user: {}

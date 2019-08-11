@@ -1,5 +1,4 @@
 import React from 'react';
-import { setAlert } from '../../actions/alert';
 import { addFavoriteArtist, findUserWhoLikedArtist } from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -8,9 +7,29 @@ import { Link } from 'react-router-dom';
 class SearchDetail extends React.Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     fans: []
-        // }
+
+        const pathname = window.location.pathname
+        const paths = pathname.split('/')
+        const artistName = paths[3]
+        // get the info of artist directly from name?
+        this.state = {
+            details: {},
+            artistName: artistName,
+        }
+    }
+
+    componentDidMount = () => {
+        fetch(`http://localhost:5000/api/search/artists/${this.state.artistName}`)
+            .then(response => response.json())
+            .then(result => this.triggerResult(result))
+
+    }
+
+    triggerResult = (result) => {
+        console.log(result)
+        this.setState({
+            details: result.artists.items[0]
+        })
     }
 
     likeArtist = (id, name, addFavoriteArtist) => {
@@ -22,29 +41,15 @@ class SearchDetail extends React.Component {
 
     findLikedUsers = (findUsers, id) => {
         findUsers(id)
-        // this.setState({
-        //     fans: this.props.auth.result
-        // })
     }
-
-    // renderLikedUsers = (result) => 
-    // {
-    //     result.map(
-    //     user => <Link 
-    //                 to={`/profile/${user._id}`} 
-    //                 key={user._id}>
-    //                 {user.name}
-    //             </Link>)
-    // }
 
 
     render() {
 
-        const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = this.props.location.details
-
+        const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = this.state.details
         const { addFavoriteArtist, findUserWhoLikedArtist } = this.props
         const { result } = this.props.auth 
-        console.log(result)       
+        // console.log(result)       
 
         return (
             <div>
