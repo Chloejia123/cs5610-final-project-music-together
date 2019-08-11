@@ -20,7 +20,6 @@ class SearchDetail extends React.Component {
     }
 
     componentDidMount = () => {
-
         this.state.searchTerm === 'artists' ? 
             this.props.findTopOneArtist(this.state.artistName) :
             this.props.findTopSong(this.state.artistName);
@@ -37,6 +36,9 @@ class SearchDetail extends React.Component {
             searchTerm === 'artists' ? 
                 this.props.findTopOneArtist(artistName) :
                 this.props.findTopSong(artistName)
+            this.setState({
+                searchTerm: searchTerm
+            })
         }
     }
 
