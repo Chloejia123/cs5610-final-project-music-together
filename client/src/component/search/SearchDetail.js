@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { addFavoriteArtist, findUserWhoLikedArtist } from '../../actions/auth';
+import { addFavoriteArtist, findUserWhoLikedArtist, addFavoriteSong, findUserWhoLikedSong } from '../../actions/auth';
 import { findTopOneArtist, findTopSong } from '../../actions/search'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -45,10 +45,22 @@ class SearchDetail extends React.Component {
         snippet['id'] = this.props.auth.user._id
         snippet['artist'] = name
         addFavoriteArtist(snippet, id)
-        updateLikedUsers(id)
+        // updateLikedUsers(id)
+    }
+
+    likeSong = (id, name, addFavoriteSong, updateLikedUsers) => {
+        let snippet = {}
+        snippet['id'] = this.props.auth.user._id
+        snippet['song'] = name
+        addFavoriteSong(snippet, id)
+        // updateLikedUsers(id)
     }
 
     findLikedUsers = (findUsers, id) => {
+        findUsers(id)
+    }
+
+    findLikedSongs = (findUsers, id) => {
         findUsers(id)
     }
 
@@ -61,7 +73,7 @@ class SearchDetail extends React.Component {
     render() {
 
         const { artists, external_urls, followers, genres, id, images, name, popularity } = this.props.search.details
-        const { addFavoriteArtist, findUserWhoLikedArtist } = this.props
+        const { addFavoriteArtist, addFavoriteSong, findUserWhoLikedArtist, findUserWhoLikedSong } = this.props
         const { result } = this.props.auth 
    
 
@@ -82,10 +94,14 @@ class SearchDetail extends React.Component {
 
                 <button 
                     className="btn btn-primary round-edge"
-                    onClick={() => this.likeArtist(id, name, addFavoriteArtist, findUserWhoLikedArtist)}>Like</button>
+                    onClick={() => this.state.searchTerm === 'artists' ? 
+                        this.likeArtist(id, name, addFavoriteArtist, findUserWhoLikedArtist) :
+                        this.likeSong(id, name, addFavoriteSong, findUserWhoLikedSong)}>Like</button>
                 <button 
                     className="btn btn-primary round-edge"
-                    onClick={() => this.findLikedUsers(findUserWhoLikedArtist, id)}>Show Fans</button>
+                    onClick={() => this.state.searchTerm === 'artists' ?
+                        this.findLikedUsers(findUserWhoLikedArtist, id) :
+                        this.findLikedSongs(findUserWhoLikedSong, id)}>Show Fans</button>
                 <br />
                 {result.map(
                     user => 
@@ -108,4 +124,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, 
-    { addFavoriteArtist, findUserWhoLikedArtist, findTopOneArtist, findTopSong })(SearchDetail)
+    { addFavoriteArtist, findUserWhoLikedArtist, findTopOneArtist, findTopSong, addFavoriteSong, findUserWhoLikedSong })(SearchDetail)

@@ -190,6 +190,57 @@ router.post('/artist/:artistId', [auth,
     },
 );
 
+// @route   POST api/profile/song/:songId
+// @desc    update a user's favorite artist
+// @access  Private 
+router.post('/song/:songId', [auth, 
+],
+    async(req, res) => {
+        console.log('H11111')
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        }
+        // console.log(req.body)
+        // console.log(req.user)
+
+        const song = req.body['song']
+        const songId = req.params.songId
+
+
+        try {
+            let profile = await Profile.findOne({
+                user: req.body.id
+            });
+            if (profile) {
+                console.log('found profile')
+                profile = await Profile.findOneAndUpdate({
+                    user: req.body.id
+                }, {
+                    $addToSet: 
+                    {
+                        favouritesongsId: songId,
+                        favouritesongs: song
+                    }
+                }, {
+                    new: true
+                })
+                return res.json(profile)
+            }
+            profile = new Profile(profileFields);
+            await profile.save();
+            res.json(profile)
+            // deep copy
+        } catch (error) {
+            console.log('here')
+            console.error(error.message)
+            res.status(500).send('Server Error')
+        }
+    },
+);
+
 // @route   GET api/profile
 // @desc    Get all profiles
 // @access  Public
@@ -210,6 +261,23 @@ router.get('/artist/:artistId', async(req, res) => {
     try {
         const profiles = await Profile.find({
             favouriteartistsId: req.params.artistId
+        },{user: 1}).populate('user', ['name', 'avatar']);
+        // console.log(profiles);
+        res.json(profiles);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   GET api/profile/song/:songId
+// @desc    Get all profiles
+// @access  Public
+router.get('/song/:songId', async(req, res) => {
+    console.log('HERE')
+    try {
+        const profiles = await Profile.find({
+            favouritesongsId: req.params.songId
         },{user: 1}).populate('user', ['name', 'avatar']);
         // console.log(profiles);
         res.json(profiles);

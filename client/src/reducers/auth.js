@@ -10,6 +10,7 @@ import {
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
     FIND_USERS_ARTISTS,
+    FIND_USERS_SONGS,
     FIND_ALL_PROFILES,
 } from '../actions/types';
 
@@ -22,7 +23,8 @@ const initialState = {
     },
     profile: {
         user: {},
-        favouriteartists: [],
+        // favouriteartists: [],
+        // favouriteartists
     },
     result: [{
         user: {}
@@ -69,6 +71,7 @@ export default function(state = initialState, action) {
                 isAuthenticated: isAuthenticated,
             }
         case FIND_USERS_ARTISTS:
+        case FIND_USERS_SONGS:
             return {
                 ...state,
                 result: payload

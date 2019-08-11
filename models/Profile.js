@@ -19,7 +19,15 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         // id: String,
     }],
+    favouritesongsId: [{
+        type: String,
+        // id: String,
+    }],
     favouriteartists: [{
+        type: String,
+        // id: String,
+    }],
+    favouritesongs: [{
         type: String,
         // id: String,
     }],

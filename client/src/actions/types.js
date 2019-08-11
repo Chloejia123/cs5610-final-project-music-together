@@ -21,3 +21,4 @@ export const ARTISTS = 'ARTISTS';
 export const SONGS = 'SONGS';
 export const TOP_ONE_ARTIST = 'TOP_ONE_ARTIST';
 export const TOP_ONE_SONG = 'TOP_ONE_SONG';
+export const FIND_USERS_SONGS = 'FIND_USERS_SONGS';

@@ -12,6 +12,7 @@ import {
     UPDATE_PROFILE,
     VIEW_MY_PROFILE,
     FIND_USERS_ARTISTS,
+    FIND_USERS_SONGS,
     FIND_ALL_PROFILES,
 } from './types';
 import { setAlert } from './alert';
@@ -137,6 +138,54 @@ export const addFavoriteArtist = (content, id) => async dispatch => {
 
     } catch (err) {
         dispatch(setAlert('Please register or log in to like this artist', 'danger'))
+    }
+}
+
+export const addFavoriteSong = (content, id) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+    // const artistId = content.artistId;
+    console.log(body)
+    // console.log(artistId)
+
+    try {
+        const res = await axios.post(`/api/profile/song/${id}`, body, config);
+        console.log(res.data)
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        })
+
+    } catch (err) {
+        console.log(err)
+        dispatch(setAlert('Please register or log in to like this artist', 'danger'))
+    }
+}
+
+export const findUserWhoLikedSong = (songId) => async dispatch => {
+
+    try {
+        const res = await axios.get(`/api/profile/song/${songId}`)
+        console.log(res)
+        
+        dispatch({
+            type: FIND_USERS_SONGS,
+            payload: res.data
+        })
+
+
+    } catch(err) {
+        console.log(err)
     }
 }
 

@@ -34,7 +34,7 @@ class Profile extends React.Component {
             <div>
                 <h2 className="subtitle text-primary">Favorite Artists</h2>
                 {
-                    favouriteartists.map(
+                    favouriteartists && favouriteartists.map(
                         artist => 
                             <div className="m artist">
                                 <button className="btn btn-white round-edge">
@@ -50,6 +50,23 @@ class Profile extends React.Component {
                 {/* <ProfileField _id={_id} field='Favorite Artists' 
                     currentValue={favouriteartists} updateFunc={updateProfile} 
                     isAuthenticated={isAuthenticated}/> */}
+
+
+                <h2 className="subtitle text-primary">Favorite Songs</h2>
+                {
+                    favouritesongs && favouritesongs.map(
+                        song => 
+                            <div className="m song">
+                                <button className="btn btn-white round-edge">
+                                    <Link to={`search/details/songs/${song}`}>
+                                        {song}
+                                    </Link>
+                                </button>
+                                <br />
+                            </div>
+                    )
+                }
+                <div className="text-dark">To add favorite songs, go <Link to="search">here</Link></div>
                 {/* <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
                     updateFunc={updateProfile} isAuthenticated={isAuthenticated}/> */}
             </div>
