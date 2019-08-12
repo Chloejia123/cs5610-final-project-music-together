@@ -17,6 +17,9 @@ import ProfileOther from './component/profile/ProfileOther';
 import ProfileAll from './component/profile/ProfileAll';
 import Posts from './component/posts/posts'
 import PrivateRoute from './component/rounting/PrivateRoute'
+import Posts from './component/posts/posts'
+import Post from './component/post/Post'
+import PrivateRoute from './component/rounting/PrivateRoute'
 
 
 if (localStorage.token) {
@@ -50,6 +53,7 @@ const App = () => {
                         <Route exact path='/profile/:userId' component={ProfileOther} />
                         <Route exact path='/profiles' component={ProfileAll} />
                         <PrivateRoute exact path='/posts' component={Posts}/>
+                        <PrivateRoute exact path='/posts/:id' component={Post}/>
                     </Switch>
                 </section>
             </Fragment>
