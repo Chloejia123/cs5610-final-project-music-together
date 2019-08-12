@@ -1,14 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { findSongs, findArtists } from '../../actions/search';
 import { connect } from 'react-redux';
 
 
 class Search extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)        
         this.state = {
-            searchBy: 'songs',
+            searchBy: this.props.location.state ? this.props.location.state.searchBy : 'songs',
             keyword: '',
         }
     }
@@ -21,38 +21,8 @@ class Search extends React.Component {
     }
 
     searchSongs = () => {
-        this.state.searchBy === 'songs' ? 
-            this.props.findSongs(this.state.keyword) : 
-            this.props.findArtists(this.state.keyword);
+        return <Redirect to={`/${this.state.searchBy}/${this.state.keyword}`}/>
     }
-
-    extractResult = (result) => {
-        switch(this.state.searchBy) {
-            case 'songs': 
-                return result.tracks
-            case 'artists': 
-                return result.artists
-            default:
-                return {
-                    item: [],
-                    total: 0,
-                }
-        }
-    }
-
-    triggerResults = (result) => {
-        this.setState({
-            result: this.extractResult(result) 
-        })
-    }
- 
-    // clearSearch = () => {
-    //     this.setState({
-    //         result: {
-    //             items: [],
-    //         },
-    //     })
-    // }
 
     keywordChanged = (keyword) =>
         this.setState({
@@ -61,7 +31,6 @@ class Search extends React.Component {
 
 
     render() {
-        const { result } = this.props.search
 
         return (
             <div>
@@ -87,32 +56,14 @@ class Search extends React.Component {
                 </form>
                 <div className="form-group-append">
                     <button
-                        onClick={() => this.searchSongs()}
                         className="btn btn-primary">
-                        Search
+                            <Link 
+                                className="link in button"
+                                to={`/search/${this.state.searchBy}/${this.state.keyword}`}>
+                                Search
+                            </Link>
                     </button>
-                    {/* <button 
-                        onClick={() => this.clearSearch()}
-                        className="btn btn-danger">
-                        Clear results
-                    </button> */}
                 </div>
-                <ul className="list-group">
-                {
-                    result.map(
-                        (song, index) => 
-                            <li className="m list-group-item" key={index}>
-                                <button className="btn btn-light" key={index}>
-                                    {song.name}
-                                    <br />
-                                    <Link to={`search/details/${this.state.searchBy}/${song.name}`}>
-                                        Click to see details
-                                    </Link>
-                                </button>
-                            </li>
-                    )
-                }
-                </ul>
             </div>
         )
     }

@@ -16,6 +16,7 @@ import ProfileAll from './component/profile/ProfileAll';
 import ProfileOther from './component/profile/ProfileOther';
 import Search from './component/search/Search';
 import SearchDetail from './component/search/SearchDetail';
+import SearchResult from './component/search/SearchResult';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
 
@@ -49,6 +50,8 @@ const App = () => {
                         <Route exact path='/profiles' component={ProfileAll} />
                         <Route exact path='/profile/:userId' component={ProfileOther} />
                         <Route exact path='/search' component={Search} />
+                        <Route exact path='/search/artists/:id' component={SearchResult} />
+                        <Route exact path='/search/songs/:id' component={SearchResult} />
                         <Route exact path='/search/details/artists/:id' component={SearchDetail} />
                         <Route exact path='/search/details/songs/:id' component={SearchDetail} />
                         <Route exact path='/register' component={Register}/>
