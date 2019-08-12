@@ -11,30 +11,18 @@ const ProfileSchema = new mongoose.Schema({
     location: {
         type: String
     },
-    // favouritesongs: {
-    //     type: [String],
-    //     required: true
-    // },
     favouriteartistsId: [{
         type: String,
-        // id: String,
     }],
     favouritesongsId: [{
         type: String,
-        // id: String,
     }],
     favouriteartists: [{
         type: String,
-        // id: String,
     }],
     favouritesongs: [{
         type: String,
-        // id: String,
     }],
-    // favouriteartists: {
-    //     type: [String],
-    //     required: true
-    // },
     followers: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
