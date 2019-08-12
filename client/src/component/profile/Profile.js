@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadUser, loadUserProfile, updateUser, updateProfile } from '../../actions/auth';
+import { loadUser } from '../../actions/auth';
+import { loadUserProfile, updateUser, updateProfile } from '../../actions/profile';
 import ProfileField from './ProfileField';
 
 class Profile extends React.Component {

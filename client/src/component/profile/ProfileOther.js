@@ -1,5 +1,5 @@
 import React from 'react'
-import { loadOtherUser } from '../../actions/auth';
+import { loadOtherUser } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileField from './ProfileField';
 

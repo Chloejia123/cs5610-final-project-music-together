@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {connect} from 'react-redux';
-import { loadAllUserProfiles } from '../../actions/auth';
+import { loadAllUserProfiles } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 
 

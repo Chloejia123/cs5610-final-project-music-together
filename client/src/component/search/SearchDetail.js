@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { addFavoriteArtist, findUserWhoLikedArtist, addFavoriteSong, findUserWhoLikedSong } from '../../actions/auth';
+import { addFavoriteArtist, findUserWhoLikedArtist, addFavoriteSong, findUserWhoLikedSong } from '../../actions/profile';
 import { findTopOneArtist, findTopSong } from '../../actions/search'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
