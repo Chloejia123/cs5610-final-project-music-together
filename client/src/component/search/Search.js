@@ -1,8 +1,4 @@
 import React from 'react'
-import SearchItem from './SearchItem'
-import SearchKeyword from './SearchKeyword'
-import SearchArtist from './SearchArtist'
-import SearchPlaylist from './SearchPlaylist'
 import { Link } from 'react-router-dom';
 import { findSongs, findArtists } from '../../actions/search';
 import { connect } from 'react-redux';
@@ -13,28 +9,18 @@ class Search extends React.Component {
         super()
         this.state = {
             searchBy: 'songs',
-            displayResults: false,
             keyword: '',
-            result: {
-                items: [],
-            },
         }
     }
 
     switchSearchCategory = (searchTerm) => {
         this.setState({
             searchBy: searchTerm,
-            result: {
-                items: []
-            },
             keyword: '',
         }) 
     }
 
     searchSongs = () => {
-        this.setState({
-            displayResults: true,
-        })
         this.state.searchBy === 'songs' ? 
             this.props.findSongs(this.state.keyword) : 
             this.props.findArtists(this.state.keyword);
@@ -43,14 +29,9 @@ class Search extends React.Component {
     extractResult = (result) => {
         switch(this.state.searchBy) {
             case 'songs': 
-                console.log('songs')
-                console.log(result)
                 return result.tracks
             case 'artists': 
-                console.log(result)
                 return result.artists
-            // case 'playlists':
-            //     return result.playlists
             default:
                 return {
                     item: [],
@@ -64,18 +45,15 @@ class Search extends React.Component {
             result: this.extractResult(result) 
         })
     }
-
-    doSearch = () => {
-        this.setState({
-            displayResults: true,
-        })
-    }
  
-    clearSearch = () => {
-        this.setState({
-            displayResults: false,
-        })
-    }
+    // clearSearch = () => {
+    //     this.setState({
+    //         result: {
+    //             items: [],
+    //         },
+    //     })
+    // }
+
     keywordChanged = (keyword) =>
         this.setState({
             keyword: keyword
@@ -97,11 +75,6 @@ class Search extends React.Component {
                     className="btn btn-dark">
                     Artists
                 </button>
-                {/* <button                     
-                    onClick={() => this.switchSearchCategory('playlists')}
-                    className="btn btn-dark">
-                    Playlists
-                </button> */}
                 <h1 className="large text-primary">Search by {this.state.searchBy}</h1>
                 <form className='form'>
                     <div className="form-group">
@@ -118,7 +91,11 @@ class Search extends React.Component {
                         className="btn btn-primary">
                         Search
                     </button>
-
+                    {/* <button 
+                        onClick={() => this.clearSearch()}
+                        className="btn btn-danger">
+                        Clear results
+                    </button> */}
                 </div>
                 <ul className="list-group">
                 {

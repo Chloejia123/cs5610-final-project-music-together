@@ -22,6 +22,7 @@ class Profile extends React.Component {
 
     renderBasic = ({name, email, roleType, _id}, isAuthenticated, updateUser) => 
         <div>
+            <h1 className="large text-primary">Basic Info</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='roleType' currentValue={roleType} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
@@ -32,18 +33,16 @@ class Profile extends React.Component {
 
         return (
             <div>
+                <h1 className="large text-primary">Music Gems</h1>
                 <h2 className="subtitle text-primary">Favorite Artists</h2>
                 {
                     favouriteartists && favouriteartists.map(
                         artist => 
-                            <div className="m artist">
-                                <button className="btn btn-white round-edge">
-                                    <Link to={`search/details/artists/${artist}`}>
-                                        {artist}
-                                    </Link>
-                                </button>
-                                <br />
-                            </div>
+                            <button className="btn btn-white round-edge my">
+                                <Link to={`search/details/artists/${artist}`}>
+                                    {artist}
+                                </Link>
+                            </button>
                     )
                 }
                 <div className="text-dark">To add favorite artists, go <Link to="search">here</Link></div>
@@ -56,14 +55,12 @@ class Profile extends React.Component {
                 {
                     favouritesongs && favouritesongs.map(
                         song => 
-                            <div className="m song">
-                                <button className="btn btn-white round-edge">
-                                    <Link to={`search/details/songs/${song}`}>
-                                        {song}
-                                    </Link>
-                                </button>
-                                <br />
-                            </div>
+                            <button className="m btn btn-white round-edge my">
+                                <Link to={`search/details/songs/${song}`}>
+                                    {song}
+                                </Link>
+                            </button>
+
                     )
                 }
                 <div className="text-dark">To add favorite songs, go <Link to="search">here</Link></div>
@@ -77,6 +74,7 @@ class Profile extends React.Component {
 
     renderSocial = ({bio, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
         <div>
+            <h1 className="large text-primary">Social Activities</h1>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile}
                 isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} 

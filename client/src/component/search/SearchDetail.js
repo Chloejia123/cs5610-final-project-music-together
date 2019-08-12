@@ -83,14 +83,20 @@ class SearchDetail extends React.Component {
             <div>
                 {this.renderImage(images)}
                 <h2 className="primary">{name}</h2>
-                {
-                    artists && artists.map(artist => 
-                        <button className="btn btn-light round-edge m"><Link to={`/search/details/artists/${artist.name}`}>{artist.name}</Link></button>)
-                }
-                <br />
+                <div className="song artist">
+                    {artists && artists.map(artist => 
+                        <button 
+                            className="btn btn-light round-edge m">
+                                <Link to={`/search/details/artists/${artist.name}`}>
+                                    {artist.name}
+                                </Link>
+                        </button>
+                    )}
+                </div>
                 <h5 className="subtitle">Popularity: {popularity}</h5>
-                {genres && genres.map(genre => <button className="btn btn-light round-edge"> {genre} </button>)}
-                <br />
+                <div className="genres">
+                    {genres && genres.map(genre => <button className="btn btn-light round-edge"> {genre} </button>)}
+                </div>
                 <a href={external_urls && external_urls.spotify} target='_'>Check on Spotify</a>
                 <br />
 
@@ -110,10 +116,9 @@ class SearchDetail extends React.Component {
                         <Fragment>
                             <Link to={`/profile/${user.user._id}`} 
                                     key={user._id}>{user.user.name}
-                                </Link> 
+                            </Link> 
                             <br />
-                        </Fragment>
-                            
+                        </Fragment>  
                      )}
             </div>
         )
