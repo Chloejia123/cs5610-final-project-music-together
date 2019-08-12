@@ -12,10 +12,12 @@ export default class ProfileField extends React.Component {
 
 
     save = (updateFunc, _id, field, value) => {
-        let snippet = {}
-        snippet['id'] = _id
-        snippet[field.toLowerCase()] = value
-        updateFunc(snippet)
+        if (this.state.value !== '') {
+            let snippet = {}
+            snippet['id'] = _id
+            snippet[field.toLowerCase()] = value
+            updateFunc(snippet)
+        }
         const { edit } = this.state
         this.setState({
             edit: !edit,
@@ -30,9 +32,9 @@ export default class ProfileField extends React.Component {
         })
     }
 
-    change = (newValue) => {
+    change = (newValue, oldValue) => {
         this.setState({
-            value: newValue
+            value: newValue ? newValue : oldValue
         })
     }
 
@@ -44,9 +46,12 @@ export default class ProfileField extends React.Component {
             <div className="nugget">
                 <h2 className="subtitle text-primary">{field}</h2>
                 {isAuthenticated && this.state.edit ? 
+                    <form className="form">
                     <input 
+                        type="text"
                         defaultValue={currentValue} 
-                        onChange={(event) => this.change(event.target.value)} /> :
+                        onChange={(event) => this.change(event.target.value, currentValue)} /> 
+                    </form> :
                     currentValue
                 }
                 <br />
