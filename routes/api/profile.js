@@ -44,10 +44,6 @@ router.get('/me', auth, async(req, res) => {
 // @desc    create/update a user profile
 // @access  Private 
 router.post('/', [auth, 
-    // [
-    //     check('favouritesongs', 'Please tell us at least one of your favourite songs').exists(),
-    //     check('favouriteartists', 'Please tell us at least one of your favourite artists').exists(),
-    // ]
 ],
     async(req, res) => {
         const errors = validationResult(req);
@@ -56,13 +52,10 @@ router.post('/', [auth,
                 errors: errors.array()
             })
         }
-        console.log(req.body)
-        console.log(req.user)
+
         const {
             bio,
             location,
-            // favouritesongs,
-            // favouriteartists,
             followers,
             soundtrackusername,
             youtube,
@@ -111,9 +104,6 @@ router.post('/', [auth,
             profileFields.instagram = instagram;
         }
 
-        console.log(profileFields.favouritesongs)
-        console.log(profileFields.favouriteartists)
-
         try {
             let profile = await Profile.findOne({
                 user: req.user.id
@@ -133,7 +123,6 @@ router.post('/', [auth,
             res.json(profile)
             // deep copy
         } catch (error) {
-            console.log('here')
             console.error(error.message)
             res.status(500).send('Server Error')
         }
@@ -153,8 +142,7 @@ router.post('/artist/:artistId', [auth,
                 errors: errors.array()
             })
         }
-        // console.log(req.body)
-        // console.log(req.user)
+
 
         const artist = req.body['artist']
         const artistId = req.params.artistId
@@ -183,7 +171,6 @@ router.post('/artist/:artistId', [auth,
             res.json(profile)
             // deep copy
         } catch (error) {
-            console.log('here')
             console.error(error.message)
             res.status(500).send('Server Error')
         }
@@ -196,15 +183,12 @@ router.post('/artist/:artistId', [auth,
 router.post('/song/:songId', [auth, 
 ],
     async(req, res) => {
-        console.log('H11111')
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array()
             })
         }
-        // console.log(req.body)
-        // console.log(req.user)
 
         const song = req.body['song']
         const songId = req.params.songId
@@ -215,7 +199,6 @@ router.post('/song/:songId', [auth,
                 user: req.body.id
             });
             if (profile) {
-                console.log('found profile')
                 profile = await Profile.findOneAndUpdate({
                     user: req.body.id
                 }, {
@@ -234,7 +217,6 @@ router.post('/song/:songId', [auth,
             res.json(profile)
             // deep copy
         } catch (error) {
-            console.log('here')
             console.error(error.message)
             res.status(500).send('Server Error')
         }
@@ -262,7 +244,6 @@ router.get('/artist/:artistId', async(req, res) => {
         const profiles = await Profile.find({
             favouriteartistsId: req.params.artistId
         },{user: 1}).populate('user', ['name', 'avatar']);
-        // console.log(profiles);
         res.json(profiles);
     } catch (err) {
         console.error(err.message);
@@ -274,12 +255,10 @@ router.get('/artist/:artistId', async(req, res) => {
 // @desc    Get all profiles
 // @access  Public
 router.get('/song/:songId', async(req, res) => {
-    console.log('HERE')
     try {
         const profiles = await Profile.find({
             favouritesongsId: req.params.songId
         },{user: 1}).populate('user', ['name', 'avatar']);
-        // console.log(profiles);
         res.json(profiles);
     } catch (err) {
         console.error(err.message);

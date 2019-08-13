@@ -125,12 +125,8 @@ router.post('/:userId', [
 
             return res.json(user)
         }
-        // user = new User();
-        // await user.save();
-        // res.json(user)
 
     } catch (error) {
-        console.log('here')
         console.error(error.message)
         res.status(500).send('Server Error')
     }
