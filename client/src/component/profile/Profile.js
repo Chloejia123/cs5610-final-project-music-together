@@ -26,7 +26,8 @@ class Profile extends React.Component {
             <h1 className="large text-primary">Basic Info</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
             <ProfileField _id={_id} field='Email' currentValue={email} updateFunc={updateUser} isAuthenticated={isAuthenticated}/>
-            <ProfileField _id={_id} field='Role' currentValue={roleType} updateFunc={updateUser} isAuthenticated={isAuthenticated} />
+            <ProfileField _id={_id} field='Role' currentValue={roleType} updateFunc={updateUser} 
+                isAuthenticated={roleType === 'ADMIN' ? isAuthenticated : false} />
         </div>
     
 

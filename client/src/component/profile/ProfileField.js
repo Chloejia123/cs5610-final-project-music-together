@@ -60,7 +60,7 @@ export default class ProfileField extends React.Component {
 
     render() {
         const { _id, field, currentValue, updateFunc, isAuthenticated } = this.props
-
+        const { edit } = this.state
         return (
             !isAuthenticated && currentValue === undefined ? <div></div> :
             <div className="nugget">
@@ -76,7 +76,9 @@ export default class ProfileField extends React.Component {
                         onClick={() => this.state.edit ? 
                         this.save(updateFunc, _id, field, this.state.value) : 
                         this.edit()}>
-                            {currentValue ===  undefined ? "Add" : "Edit"}
+                            {edit ? 
+                                "Save" :
+                                currentValue ===  undefined ? "Add" : "Edit"}
                     </button> : 
                     <div></div>
                 }
