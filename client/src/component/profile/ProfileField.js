@@ -10,12 +10,11 @@ export default class ProfileField extends React.Component {
         }
     }
 
-
     save = (updateFunc, _id, field, value) => {
         if (this.state.value !== '') {
             let snippet = {}
             snippet['id'] = _id
-            snippet[field.toLowerCase()] = value
+            snippet[field === 'Role' ? 'roleType' : field.toLowerCase()] = value
             updateFunc(snippet)
         }
         const { edit } = this.state
@@ -38,6 +37,25 @@ export default class ProfileField extends React.Component {
         })
     }
 
+    renderInputField = (field, currentValue) => 
+        field === 'Role' ?
+        <select type='roleType' name='roleType' value={currentValue} 
+            onChange={(event) => this.change(event.target.value, currentValue)}
+            className='form-group' required>
+            <option value="none" selected hidden> 
+                Select an role type 
+            </option> 
+            <option value={'GENERAL_USER'}>General User</option>
+            <option value={'ADMIN'}>Admin</option>
+        </select> :
+        <form className="form">
+        <input 
+            type="text"
+            defaultValue={currentValue} 
+            onChange={(event) => this.change(event.target.value, currentValue)} /> 
+        </form> 
+    
+
     render() {
         const { _id, field, currentValue, updateFunc, isAuthenticated } = this.props
 
@@ -46,12 +64,7 @@ export default class ProfileField extends React.Component {
             <div className="nugget">
                 <h2 className="subtitle text-primary">{field}</h2>
                 {isAuthenticated && this.state.edit ? 
-                    <form className="form">
-                    <input 
-                        type="text"
-                        defaultValue={currentValue} 
-                        onChange={(event) => this.change(event.target.value, currentValue)} /> 
-                    </form> :
+                    this.renderInputField(field, currentValue) :
                     currentValue
                 }
                 <br />

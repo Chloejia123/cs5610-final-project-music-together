@@ -2,6 +2,7 @@ import React from 'react'
 import { loadOtherUser } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileField from './ProfileField';
+import { Link } from 'react-router-dom';
 
 class ProfileOther extends React.Component {
     constructor(props) {
@@ -41,22 +42,42 @@ class ProfileOther extends React.Component {
         }
     }
 
-    renderBasic = ({name, _id}) => 
+    renderBasic = ({name, _id, roleType}) => 
         <div>
             <h1 className="large text-primary">Profile</h1>
             <ProfileField _id={_id} field='Name' currentValue={name} 
                 isAuthenticated={false}/>
+            <ProfileField _id={_id} field='Role' currentValue={roleType} 
+                isAuthenticated={false} />
         </div>
     
 
     renderMusic = ({favouriteartists, favouritesongs, _id}) => 
     <div>
-        <h2 className="large text-primary">Music Profile</h2>
-        {/* <ProfileField _id={_id} field='Favorite Artists' 
-            currentValue={favouriteartists} 
-            isAuthenticated={false}/>
-        <ProfileField _id={_id} field='Favorite Songs' currentValue={favouritesongs} 
-            isAuthenticated={false}/> */}
+        <h1 className="large text-primary">Music Gems</h1>
+        <h2 className="subtitle text-primary">Favorite Artists</h2>
+        {
+            favouriteartists && favouriteartists.map(
+                artist => 
+                    <button className="btn btn-white round-edge my">
+                        <Link to={`search/details/artists/${artist}`}>
+                            {artist}
+                        </Link>
+                    </button>
+            )
+        }
+        <h2 className="subtitle text-primary">Favorite Songs</h2>
+        {
+            favouritesongs && favouritesongs.map(
+                song => 
+                    <button className="m btn btn-white round-edge my">
+                        <Link to={`search/details/songs/${song}`}>
+                            {song}
+                        </Link>
+                    </button>
+            )
+        }
+
     </div>
     
 
