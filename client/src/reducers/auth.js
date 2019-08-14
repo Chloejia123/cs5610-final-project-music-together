@@ -12,6 +12,7 @@ import {
     FIND_USERS_ARTISTS,
     FIND_USERS_SONGS,
     FIND_ALL_PROFILES,
+    FOLLOW_USER,
 } from '../actions/types';
 
 
@@ -56,6 +57,7 @@ export default function(state = initialState, action) {
                 profile: payload
             }
         case UPDATE_PROFILE:
+        case FOLLOW_USER:
             return {
                 ...state,
                 profile: payload

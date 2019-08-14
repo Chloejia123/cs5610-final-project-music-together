@@ -24,7 +24,9 @@ router.get('/me', auth, async(req, res) => {
     try {
         const profile = await Profile.findOne({
             user: req.user.id
-        }).populate('user', ['name', 'avatar']);
+        })
+            .populate('user', ['name', 'avatar'])
+            .populate('followers', ['name']).exec();
 
         if (!profile) {
             return res.status(400).json({
@@ -56,15 +58,13 @@ router.post('/', [auth,
         const {
             bio,
             location,
-            followers,
-            soundtrackusername,
+
             youtube,
             twitter,
             facebook,
             instagram
         } = req.body;
-        const favouritesongs = req.body['favorite songs']
-        const favouriteartists = req.body['favorite artists']
+
 
         const profileFields = {};
 
@@ -75,20 +75,6 @@ router.post('/', [auth,
         }
         if (location) {
             profileFields.location = location;
-        }
-        if (favouritesongs) {
-            profileFields.favouritesongs = favouritesongs.split(',').map(x => x.trim());
-            // profileFields.favouritesongs = favouritesongs
-        }
-        if (favouriteartists) {
-            profileFields.favouriteartists = favouriteartists.split(',').map(x => x.trim());
-            // profileFields.favouriteartists = favouriteartists
-        }
-        if (followers) {
-            profileFields.followers = followers;
-        }
-        if (soundtrackusername) {
-            profileFields.soundtrackusername = soundtrackusername;
         }
 
         if (youtube) {
@@ -121,7 +107,91 @@ router.post('/', [auth,
             profile = new Profile(profileFields);
             await profile.save();
             res.json(profile)
-            // deep copy
+
+        } catch (error) {
+            console.error(error.message)
+            res.status(500).send('Server Error')
+        }
+    },
+);
+
+// @route   POST api/profile/follow
+// @desc    current user follow userId
+// @access  Private 
+router.post('/follow', [auth, 
+],
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        }
+
+        const follower = req.body.follower;
+        const followee = req.body.followee;
+
+        try {
+            let profile = await Profile.findOne({
+                user: follower
+            });
+
+            if (profile) {
+                profile = await Profile.findOneAndUpdate({
+                    user: followee
+                }, {
+                    $addToSet: 
+                    {
+                        followers: follower
+                    }
+                }, {
+                    new: true
+                })
+                return res.json(profile)
+            }
+
+        } catch (error) {
+            console.error(error.message)
+            res.status(500).send('Server Error')
+        }
+    },
+);
+
+// @route   POST api/profile/unfollow
+// @desc    current user follow userId
+// @access  Private 
+router.post('/unfollow', [auth, 
+],
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        }
+
+        const follower = req.body.follower;
+        const followee = req.body.followee;
+
+        try {
+            let profile = await Profile.findOne({
+                user: follower
+            });
+
+            if (profile) {
+                profile = await Profile.findOneAndUpdate({
+                    user: followee
+                }, {
+                    $pull: 
+                    {
+                        followers: follower
+                    }
+                }, {
+                    new: true
+                })
+                return res.json(profile)
+            }
+
         } catch (error) {
             console.error(error.message)
             res.status(500).send('Server Error')
@@ -166,10 +236,6 @@ router.post('/artist/:artistId', [auth,
                 })
                 return res.json(profile)
             }
-            profile = new Profile(profileFields);
-            await profile.save();
-            res.json(profile)
-            // deep copy
         } catch (error) {
             console.error(error.message)
             res.status(500).send('Server Error')
@@ -212,10 +278,6 @@ router.post('/song/:songId', [auth,
                 })
                 return res.json(profile)
             }
-            profile = new Profile(profileFields);
-            await profile.save();
-            res.json(profile)
-            // deep copy
         } catch (error) {
             console.error(error.message)
             res.status(500).send('Server Error')
@@ -228,7 +290,9 @@ router.post('/song/:songId', [auth,
 // @access  Public
 router.get('/', async(req, res) => {
     try {
-        const profiles = await Profile.find().populate('user', ['name', 'avatar', 'date']);
+        const profiles = await Profile.find()
+            .populate('user', ['name', 'avatar', 'date'])
+            .populate('followers', ['name']).exec();
         res.json(profiles);
     } catch (err) {
         console.error(err.message);
@@ -243,7 +307,8 @@ router.get('/artist/:artistId', async(req, res) => {
     try {
         const profiles = await Profile.find({
             favouriteartistsId: req.params.artistId
-        },{user: 1}).populate('user', ['name', 'avatar']);
+        },{user: 1}).populate('user', ['name', 'avatar'])
+        .populate('followers', ['name']).exec();
         res.json(profiles);
     } catch (err) {
         console.error(err.message);
@@ -258,7 +323,8 @@ router.get('/song/:songId', async(req, res) => {
     try {
         const profiles = await Profile.find({
             favouritesongsId: req.params.songId
-        },{user: 1}).populate('user', ['name', 'avatar']);
+        },{user: 1}).populate('user', ['name', 'avatar'])
+        .populate('followers', ['name']).exec();
         res.json(profiles);
     } catch (err) {
         console.error(err.message);
@@ -273,7 +339,8 @@ router.get('/user/:uid', async(req, res) => {
     try {
         const profile = await Profile.findOne({
             user: req.params.uid
-        }).populate('user', ['name', 'avatar', 'roleType']);
+        }).populate('user', ['name', 'avatar', 'roleType'])
+        .populate('followers', ['name']).exec();
 
         if (!profile) return res.status(400).json({
             msg: 'Profile not found'

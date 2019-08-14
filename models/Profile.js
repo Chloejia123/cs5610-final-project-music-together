@@ -24,10 +24,8 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
     }],
     followers: [{
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'users'
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }],
     soundtrackusername: {
         type: String

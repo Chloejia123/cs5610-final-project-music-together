@@ -74,7 +74,7 @@ class SearchDetail extends React.Component {
 
     render() {
 
-        const { artists, external_urls, followers, genres, id, images, name, popularity } = this.props.search.details
+        const { artists, external_urls, genres, id, images, name, popularity } = this.props.search.details
         const { addFavoriteArtist, addFavoriteSong, findUserWhoLikedArtist, findUserWhoLikedSong } = this.props
         const { result } = this.props.auth 
    

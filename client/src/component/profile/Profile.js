@@ -73,13 +73,21 @@ class Profile extends React.Component {
 
     
 
-    renderSocial = ({bio, location, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
+    renderSocial = ({bio, location, followers, facebook, youtube, twitter, instagram, _id}, isAuthenticated, updateProfile) => 
         <div>
             <h1 className="large text-primary">Social Activities</h1>
             <ProfileField _id={_id} field='Bio' currentValue={bio} updateFunc={updateProfile}
                 isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='Location' currentValue={location} updateFunc={updateProfile} 
                 isAuthenticated={isAuthenticated} />
+            <h2 className="subtitle text-primary">{followers &&  followers.length > 0 ? 'Followers' : ''}</h2>
+            {
+                followers && followers.map(follower => 
+                    <button className="m btn btn-white round-edge my">
+                    <Link to={`/profile/${follower._id}`} key={follower._id}>
+                        {follower.name}
+                    </Link></button>)
+            }
             <ProfileField _id={_id} field='Facebook' currentValue={facebook} updateFunc={updateProfile} 
                 isAuthenticated={isAuthenticated} />
             <ProfileField _id={_id} field='YouTube' currentValue={youtube} updateFunc={updateProfile} 
@@ -105,7 +113,6 @@ class Profile extends React.Component {
     render() {
         const { loadUser, loadUserProfile, updateUser, updateProfile } = this.props;
         const { isAuthenticated, user, profile } = this.props.auth;
-
 
         return (
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { loadOtherUser } from '../../actions/profile';
+import { loadOtherUser, followUser, unfollowUser } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileField from './ProfileField';
 import { Link } from 'react-router-dom';
@@ -77,7 +77,6 @@ class ProfileOther extends React.Component {
                     </button>
             )
         }
-
     </div>
     
 
@@ -88,6 +87,14 @@ class ProfileOther extends React.Component {
                 isAuthenticated={false} />
             <ProfileField _id={_id} field='Location' currentValue={location} 
                 isAuthenticated={false} />
+            <h2 className="subtitle text-primary">{followers.length > 0 ? 'Followers' : ''}</h2>
+            {
+                followers && followers.map(follower => 
+                    <button className="m btn btn-white round-edge my">
+                    <Link to={`/profile/${follower._id}`} key={follower._id}>
+                        {follower.name}
+                    </Link></button>)
+            }            
             <ProfileField _id={_id} field='Facebook' currentValue={facebook} 
                 isAuthenticated={false} />
             <ProfileField _id={_id} field='YouTube' currentValue={youtube}  
@@ -98,7 +105,28 @@ class ProfileOther extends React.Component {
                 isAuthenticated={false} /> 
         </div>
 
+
+    follow = (id, isAuthenticated) => {
+        let snippet = {}
+        snippet['follower'] = this.props.auth.user._id
+        snippet['followee'] = id
+
+        this.props.followUser(snippet, isAuthenticated)
+
+    }
+
+    unfollow = (id, isAuthenticated) => {
+        let snippet = {}
+        snippet['follower'] = this.props.auth.user._id
+        snippet['followee'] = id
+
+        this.props.unfollowUser(snippet, isAuthenticated)       
+    }
+
     render() {
+        const { userId } = this.state
+        const { isAuthenticated } = this.props.auth
+
         return (
             <div>
                 <button 
@@ -110,6 +138,14 @@ class ProfileOther extends React.Component {
                 <button 
                     className="btn btn-dark"
                     onClick={() => this.updateShow('social')}>Social</button>
+                <button
+                    className="btn btn-light"
+                    onClick={() => this.follow(userId, isAuthenticated)}>Follow
+                </button>
+                <button
+                    className="btn btn-light"
+                    onClick={() => this.unfollow(userId, isAuthenticated)}>Unfollow
+                </button>
                 {this.renderProfile()}
             </div>
         )
@@ -120,4 +156,5 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { loadOtherUser })(ProfileOther);
+export default connect(mapStateToProps, 
+                        { loadOtherUser, followUser, unfollowUser })(ProfileOther);

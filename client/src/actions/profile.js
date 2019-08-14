@@ -8,6 +8,7 @@ import {
     FIND_USERS_SONGS,
     FIND_ALL_PROFILES,
     AUTH_ERROR,
+    FOLLOW_USER,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -36,7 +37,6 @@ export const loadUserProfile = () => async dispatch => {
 export const loadOtherUser = (userId, isAuthenticated = false) => async dispatch => {
     try {
         const res = await axios.get(`/api/profile/user/${userId}`);
-
         dispatch({
             type: VIEW_OTHERS,
             payload: res.data,
@@ -45,6 +45,65 @@ export const loadOtherUser = (userId, isAuthenticated = false) => async dispatch
 
     } catch (err) {
         console.log(err)
+    }
+}
+
+export const followUser= (content, isAuthenticated) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+
+
+    try {
+        const res = await axios.post(`/api/profile/follow`, body, config);
+
+        // dispatch({
+        //     type: FOLLOW_USER,
+        //     payload: res.data,
+        // })
+
+        dispatch(loadOtherUser(content.followee, isAuthenticated));
+
+    } catch (err) {
+        dispatch(setAlert('Please register or log in to follow this user', 'danger'))
+    }
+}
+
+
+export const unfollowUser= (content, isAuthenticated) => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify(content);
+
+
+    try {
+        const res = await axios.post(`/api/profile/unfollow`, body, config);
+
+        // dispatch({
+        //     type: FOLLOW_USER,
+        //     payload: res.data,
+        // })
+
+        dispatch(loadOtherUser(content.followee, isAuthenticated));
+
+    } catch (err) {
+        dispatch(setAlert('Please register or log in to unfollow this user', 'danger'))
     }
 }
 

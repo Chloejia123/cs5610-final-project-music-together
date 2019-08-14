@@ -6,6 +6,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const FIND_ALL_PROFILES = 'FIND_ALL_PROFILES';
 export const FIND_USERS_ARTISTS = 'FIND_USERS_ARTISTS';
 export const FIND_USERS_SONGS = 'FIND_USERS_SONGS';
+export const FOLLOW_USER = 'FOLLOW_USER';
 export const GET_POST = 'GET_POST';
 export const GET_POSTS = 'GET_POSTS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';

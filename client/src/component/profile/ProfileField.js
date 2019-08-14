@@ -10,6 +10,8 @@ export default class ProfileField extends React.Component {
         }
     }
 
+
+
     save = (updateFunc, _id, field, value) => {
         if (this.state.value !== '') {
             let snippet = {}
@@ -65,7 +67,7 @@ export default class ProfileField extends React.Component {
                 <h2 className="subtitle text-primary">{field}</h2>
                 {isAuthenticated && this.state.edit ? 
                     this.renderInputField(field, currentValue) :
-                    currentValue
+                    currentValue === 'GENERAL_USER' ? 'General User' : currentValue
                 }
                 <br />
                 {isAuthenticated ? 
